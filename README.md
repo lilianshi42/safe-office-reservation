@@ -5,9 +5,6 @@
 - Each time after group meeting confirmed the changes are in good place, make a merge request and your branch will be deleted after merge. 
 - For further developments, you need to creat a new branch to work on. 
 
-# Getting Started with Create React App
-
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
 
