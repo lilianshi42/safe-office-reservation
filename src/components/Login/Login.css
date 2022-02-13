@@ -1,0 +1,4 @@
+/* Does not work */
+.ant-form-item-label > label {
+    font-size: large;
+}

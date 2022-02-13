@@ -1,13 +1,12 @@
 import React from "react";
-import NavFooter from "./components/NavFooter/NavFooter";
+import Container from "./components/Container";
 import "./App.css";
-import 'bootstrap/dist/css/bootstrap.min.css';
+import "bootstrap/dist/css/bootstrap.min.css";
 
 function App() {
   return (
     <div>
-      other pages here
-      <NavFooter />
+      <Container />
     </div>
   );
 }
