@@ -1,13 +1,13 @@
 import React from "react";
-import Container from "./components/Container";
+import NavFooter from "./components/NavFooter/NavFooter";
 import "./App.css";
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <Container />
-      </header>
+    <div>
+      other pages here
+      <NavFooter />
     </div>
   );
 }
