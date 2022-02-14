@@ -9,6 +9,26 @@
     margin-bottom: 25px;
 }
 
-.buttons>Button {
-    margin-bottom: 15px;
+.profile-links{
+    align-items: center;
+    text-align: center;
+}
+
+.link-to-other-feature {
+    margin: 100px auto;
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 48px;
+    line-height: 36px;
+    /* or 75% */
+
+    /* display: flex;
+    align-items: center; */
+    text-align: center;
+
+    color: #000000;
+
+    text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+
 }
