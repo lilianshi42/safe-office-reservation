@@ -12,15 +12,15 @@ const NavFooter = () => {
         <RiotGamesLogo className="logo" />
       </Navbar.Brand>
       <Nav className="me-auto nav-options">
-        <Nav.Link className="nav-item" href="#">
+        <Nav.Link className="nav-item" href="/home">
           <HomeOutlined className="nav-icon" />
           <p className="nav-p">Home</p>
         </Nav.Link>
-        <Nav.Link className="nav-item" href="#">
+        <Nav.Link className="nav-item" href="/desk">
           <DesktopOutlined className="nav-icon" />
           <p className="nav-p">Desk</p>
         </Nav.Link>
-        <Nav.Link className="nav-item" href="#">
+        <Nav.Link className="nav-item" href="/profile">
           <UserOutlined className="nav-icon" />
           <p className="nav-p">Profile</p>
         </Nav.Link>
