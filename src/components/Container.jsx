@@ -1,16 +1,15 @@
 import React from "react";
-import NavFooter from "./NavFooter/NavFooter";
-import Login from "./Login/Login";
-import HomePage from "../pages/HomePage/Home";
-
 import { Route, Routes } from "react-router-dom";
+import Login from "./login/Login";
+import HomePage from "./homePage/Home";
+import NavFooter from "./navFooter/NavFooter";
 
 function Container() {
   return (
     <div>
       <Routes>
-        <Route exact path="/" element={<HomePage />} />
-        <Route exact path="/login" element={<Login />} />
+        <Route exact path="/home" element={<HomePage />} />
+        <Route exact path="/" element={<Login />} />
       </Routes>
       <NavFooter />
     </div>

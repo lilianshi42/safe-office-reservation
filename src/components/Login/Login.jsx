@@ -1,6 +1,6 @@
 import React from "react";
 import { Form, Input, Button, Image } from "antd";
-//import { ReactComponent as RiotGamesLogo } from "../../assets/riot-games-logo.svg";
+import "./Login.css";
 
 function Login() {
   return (
