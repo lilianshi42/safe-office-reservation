@@ -3,7 +3,7 @@ import { Form, Input, Button, Image } from "antd";
 import "./Login.css";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../../contexts/AuthContext";
-import { Alert } from "bootstrap";
+import { Alert } from "antd";
 
 function Login() {
   const [loading, setLoading] = useState(false);
@@ -16,7 +16,7 @@ function Login() {
       setError("");
       setLoading(true);
       await login(values.email, values.password);
-      navigate("/");
+      navigate("/home");
     } catch (err) {
       setError("Failed to login");
     }
@@ -92,7 +92,7 @@ function Login() {
             <div>
               First time use? <Link to="/sign-up">Sign Up</Link>
             </div>
-            {error && <Alert variant="danger">{error}</Alert>}
+            {error && <Alert message={error} type="warning" closable />}
           </Form.Item>
         </Form>
       </div>

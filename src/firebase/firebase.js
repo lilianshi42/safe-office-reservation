@@ -2,12 +2,12 @@ import firebase from 'firebase/compat/app';
 import 'firebase/compat/auth';
 
 const firebaseConfig = {
-  apiKey: "AIzaSyBYxMM9lL5dPYnbgYfbDq031WumRVxyrdA",
-  authDomain: "safe-office-reservation.firebaseapp.com",
-  projectId: "safe-office-reservation",
-  storageBucket: "safe-office-reservation.appspot.com",
-  messagingSenderId: "22641667249",
-  appId: "1:22641667249:web:8ff426031abcf505764690"
+  apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
+  authDomain: process.env.REACT_APP_FIREBASE_AUTH_DOMAIN,
+  projectId: process.env.REACT_APP_FIREBASE_PROJECT_ID,
+  storageBucket: process.env.REACT_APP_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: process.env.REACT_APP_FIREBASE_MESSAGING_SENDER_ID,
+  appId: process.env.REACT_APP_FIREBASE_APP_ID
 };
 
 const app = firebase.initializeApp(firebaseConfig);

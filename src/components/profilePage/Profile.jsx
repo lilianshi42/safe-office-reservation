@@ -1,18 +1,18 @@
 import "./Profile.css";
 import { useAuth } from "../../contexts/AuthContext";
 import { useState } from "react";
-import { Navigate } from "react-router-dom";
-import { Alert } from "bootstrap";
+import { useNavigate } from "react-router-dom";
+import { Alert } from "antd";
 
 const ProfilePage = () => {
   const [error, setError] = useState("");
   const { currentUser, logOut } = useAuth();
-  const navigate = Navigate();
+  const navigate = useNavigate();
 
   return (
     <div className="profile">
       <h1>Hello Welcome</h1>
-      {error && <Alert variant="danger">{error}</Alert>}
+      {error && <Alert message={error} type="warning" closable />}
       <div className="profile-links">
         {currentUser ? (
           <div
@@ -20,7 +20,7 @@ const ProfilePage = () => {
             onClick={() => {
               try {
                 logOut();
-                navigate("/login");
+                navigate('/');
               } catch {
                 setError("Failed to log out");
               }

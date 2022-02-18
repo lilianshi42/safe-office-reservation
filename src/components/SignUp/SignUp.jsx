@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Form, Input, Image, Button } from "antd";
 import { useAuth } from "../../contexts/AuthContext";
 import { Link, useNavigate } from "react-router-dom";
-import { Alert } from "bootstrap";
+import { Alert } from "antd";
 import "./SignUp.css";
 
 const formItemLayout = {
@@ -49,9 +49,9 @@ const SignUp = () => {
       setError("");
       setLoading(true);
       await signUp(values.email, values.password);
-      navigate("/");
+      navigate("/home");
     } catch (err) {
-      setError("Failed to create an account");
+      setError("Failed to create an account ",err);
     }
     setLoading(false);
   };
@@ -155,7 +155,7 @@ const SignUp = () => {
           <div>
             Already have an account? <Link to="/login">Log in</Link>
           </div>
-          {error && <Alert variant="danger">{error}</Alert>}
+          {error && <Alert message={error} type="warning" closable />}
         </Form.Item>
       </Form>
       <div style={{ margin: "20px", padding: "15px" }}></div>
