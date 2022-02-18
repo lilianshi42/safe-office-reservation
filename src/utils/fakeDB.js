@@ -108,7 +108,7 @@ let fakeDB={
 
     //get the floor object by floor id
     getFloorByFloorId(id){
-        return this.floors.find(floor=>floor.id==id);
+        return this.floors.find(floor=>floor.id===id);
     },
 
     //get array of desks by floor id
@@ -121,10 +121,10 @@ let fakeDB={
     //this function is used to see the available desks for a certain date
     getAllDesksByFloorIdAndDate(id,date){
         let desks = this.getAllDesksByFloorId(id);
-        if(desks.length==0) return [];
+        if(desks.length===0) return [];
         let bookedDesksOnDate = [];
         this.bookings.forEach(booking=>{
-            if(booking.bookingDate==date){
+            if(booking.bookingDate===date){
                 bookedDesksOnDate.push(booking.deskId);
             }
         })
@@ -140,7 +140,7 @@ let fakeDB={
     addNewDeskForFloor(floorId,desk){
         let floor= this.getFloorByFloorId(floorId);
         if(!floor) return false;
-        if(floor.desks==undefined){
+        if(floor.desks===undefined){
             floor.desks=[];      
         }
         floor.desks.push(desk);
@@ -148,14 +148,14 @@ let fakeDB={
 
     //return true if user has a booking on that date
     userHasBookingThatDay(username,date){
-        return this.bookings.some(booking=>booking.owner==username && booking.bookingDate==date);
+        return this.bookings.some(booking=>booking.owner===username && booking.bookingDate===date);
     },
 
     //get desk
     getDeskByFloorIdAndDeskId(floorId,deskId){
         let floor= this.getFloorByFloorId(floorId);
-        if(this.getAllDesksByFloorId(floorId).length==0) return null;
-        return floor.desks.find(desk=>desk.id==deskId);
+        if(this.getAllDesksByFloorId(floorId).length===0) return null;
+        return floor.desks.find(desk=>desk.id===deskId);
     },
 
     //add new booking, note: needs to add validations later
@@ -179,9 +179,9 @@ let fakeDB={
     //note: needs to add validations later
     getBookingByUsernameAndDate(username,date){
         if(!date){
-            return this.bookings.filter(booking=>booking.owner==username);
+            return this.bookings.filter(booking=>booking.owner===username);
         }
-        return this.bookings.filter(booking=>booking.owner==username && booking.bookingDate==date);
+        return this.bookings.filter(booking=>booking.owner===username && booking.bookingDate===date);
     }
 
 
