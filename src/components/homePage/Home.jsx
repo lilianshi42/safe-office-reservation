@@ -1,6 +1,7 @@
 import React from "react";
 import { Button } from "antd";
 import "./Home.css";
+import { Link } from "react-router-dom";
 
 const HomePage = () => {
   return (
@@ -13,9 +14,11 @@ const HomePage = () => {
         <Button type="default" size="large" block>
           CHECK OUT
         </Button>
-        <Button type="default" size="large" block>
-          BOOK SEAT
-        </Button>
+        <Link to="/bookDesk">
+          <Button type="default" size="large" block>
+            BOOK SEAT
+          </Button>
+        </Link>
         <Button type="default" size="large" block>
           MY BOOKINGS
         </Button>
