@@ -6,6 +6,7 @@ import NavFooter from "./NavFooter/NavFooter";
 import BookDeskPage from "./bookDeskPage/BookDesk";
 import ProfilePage from "./profilePage/Profile";
 import SignUp from "./SignUp/SignUp";
+import BookingsPage from "./bookingsPage/BookingsPage";
 
 function Container() {
   return (
@@ -13,6 +14,7 @@ function Container() {
       <Routes>
         <Route exact path="/home" element={<HomePage />} />
         <Route exact path="/bookDesk" element={<BookDeskPage />} />
+        <Route exact path="/bookings" element={<BookingsPage />} />
         <Route exact path="/profile" element={<ProfilePage />} />
         <Route exact path="/" element={<Login />} />
         <Route exact path="/sign-up" element={<SignUp />} />

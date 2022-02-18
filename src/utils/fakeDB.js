@@ -146,16 +146,6 @@ let fakeDB={
         floor.desks.push(desk);
     },
 
-    //add new desk for floor
-    addNewDeskForFloor(floorId,desk){
-        let floor= this.getFloorByFloorId(floorId);
-        if(!floor) return false;
-        if(floor.desks==undefined){
-            floor.desks=[];      
-        }
-        floor.desks.push(desk);
-    },
-
     //return true if user has a booking on that date
     userHasBookingThatDay(username,date){
         return this.bookings.some(booking=>booking.owner==username && booking.bookingDate==date);
@@ -188,7 +178,10 @@ let fakeDB={
 
     //note: needs to add validations later
     getBookingByUsernameAndDate(username,date){
-        return this.bookings.find(booking=>booking.owner==username && booking.bookingDate==date);
+        if(!date){
+            return this.bookings.filter(booking=>booking.owner==username);
+        }
+        return this.bookings.filter(booking=>booking.owner==username && booking.bookingDate==date);
     }
 
 
