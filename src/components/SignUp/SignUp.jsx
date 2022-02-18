@@ -19,7 +19,7 @@ const formItemLayout = {
       span: 24,
     },
     sm: {
-      span: 13,
+      span: 12,
     },
   },
 };
@@ -31,8 +31,8 @@ const tailFormItemLayout = {
       offset: 1,
     },
     sm: {
-      span: 16,
-      offset: 11,
+      span: 6,
+      offset: 9,
     },
   },
 };
@@ -51,7 +51,7 @@ const SignUp = () => {
       await signUp(values.email, values.password);
       navigate("/home");
     } catch (err) {
-      setError("Failed to create an account ",err);
+      setError("Failed to create an account, Your email has already registered ",err);
     }
     setLoading(false);
   };
@@ -74,9 +74,14 @@ const SignUp = () => {
         form={form}
         name="register"
         onFinish={onFinish}
+        initialValues={{
+          remember: true,
+        }}
+        autoComplete="off"
         scrollToFirstError
       >
         <Form.Item
+        style={{ padding: "5px" }}
           name="username"
           label="User Name"
           tooltip="What do you want others to call you?"
@@ -92,6 +97,7 @@ const SignUp = () => {
         </Form.Item>
 
         <Form.Item
+        style={{ padding: "5px" }}
           name="email"
           label="E-mail"
           rules={[
@@ -109,6 +115,7 @@ const SignUp = () => {
         </Form.Item>
 
         <Form.Item
+        style={{ padding: "5px" }}
           name="password"
           label="Password"
           rules={[
@@ -123,6 +130,7 @@ const SignUp = () => {
         </Form.Item>
 
         <Form.Item
+        style={{ padding: "5px" }}
           name="confirm"
           label="Confirm Password"
           dependencies={["password"]}
@@ -148,12 +156,12 @@ const SignUp = () => {
           <Input.Password />
         </Form.Item>
 
-        <Form.Item {...tailFormItemLayout}>
+        <Form.Item {...tailFormItemLayout} style={{ textAlign: "center", padding: "5px" }}>
           <Button type="primary" htmlType="submit" disabled={loading}>
             Sign Up
           </Button>
           <div>
-            Already have an account? <Link to="/login">Log in</Link>
+            Already have an account? <Link to="/">Log in</Link>
           </div>
           {error && <Alert message={error} type="warning" closable />}
         </Form.Item>
