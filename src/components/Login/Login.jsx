@@ -1,12 +1,40 @@
-import React from "react";
+import React, { useState } from "react";
 import { Form, Input, Button, Image } from "antd";
 import "./Login.css";
+import { Link, useNavigate } from "react-router-dom";
+import { useAuth } from "../../contexts/AuthContext";
+import { Alert } from "bootstrap";
 
 function Login() {
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+  const { login } = useAuth();
+  const navigate = useNavigate();
+
+  const onFinish = async (values) => {
+    try {
+      setError("");
+      setLoading(true);
+      await login(values.email, values.password);
+      navigate("/");
+    } catch (err) {
+      setError("Failed to login");
+    }
+    setLoading(false);
+  };
+
   return (
     <div style={{ margin: "20px", padding: "15px" }}>
-      <div className="login-logo" style={{ textAlign: "center", margin: "20px", padding: "15px" }}>
-        <Image src="https://cdn-images-1.medium.com/max/1200/1*IOMogY9xupXEg_ndWOb_4A.png" alt="riot-logo" width={100} preview={false} />
+      <div
+        className="login-logo"
+        style={{ textAlign: "center", margin: "20px", padding: "15px" }}
+      >
+        <Image
+          src="https://cdn-images-1.medium.com/max/1200/1*IOMogY9xupXEg_ndWOb_4A.png"
+          alt="riot-logo"
+          width={100}
+          preview={false}
+        />
       </div>
       <div style={{ margin: "20px", padding: "15px" }}>
         <Form
@@ -20,7 +48,9 @@ function Login() {
           initialValues={{
             remember: true,
           }}
-          autoComplete="off">
+          autoComplete="off"
+          onFinish={onFinish}
+        >
           <Form.Item
             style={{ padding: "5px" }}
             label="Email"
@@ -30,7 +60,8 @@ function Login() {
                 required: true,
                 message: "Please input your Email!",
               },
-            ]}>
+            ]}
+          >
             <Input />
           </Form.Item>
 
@@ -43,7 +74,8 @@ function Login() {
                 required: true,
                 message: "Please input your password!",
               },
-            ]}>
+            ]}
+          >
             <Input.Password />
           </Form.Item>
 
@@ -52,10 +84,15 @@ function Login() {
             wrapperCol={{
               offset: 6,
               span: 12,
-            }}>
-            <Button type="primary" htmlType="submit">
+            }}
+          >
+            <Button type="primary" htmlType="submit" disabled={loading}>
               Login
             </Button>
+            <div>
+              First time use? <Link to="/sign-up">Sign Up</Link>
+            </div>
+            {error && <Alert variant="danger">{error}</Alert>}
           </Form.Item>
         </Form>
       </div>

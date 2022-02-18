@@ -1,5 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import { Form, Input, Image, Button } from "antd";
+import { useAuth } from "../../contexts/AuthContext";
+import { Link, useNavigate } from "react-router-dom";
+import { Alert } from "bootstrap";
 import "./SignUp.css";
 
 const formItemLayout = {
@@ -35,9 +38,22 @@ const tailFormItemLayout = {
 };
 
 const SignUp = () => {
+  const [loading, setLoading] = useState(false);
+  const { signUp } = useAuth();
+  const [error, setError] = useState("");
+  const navigate = useNavigate();
   const [form] = Form.useForm();
-  const onFinish = (values) => {
-    console.log("Received values of form: ", values);
+
+  const onFinish = async (values) => {
+    try {
+      setError("");
+      setLoading(true);
+      await signUp(values.email, values.password);
+      navigate("/");
+    } catch (err) {
+      setError("Failed to create an account");
+    }
+    setLoading(false);
   };
 
   return (
@@ -133,9 +149,13 @@ const SignUp = () => {
         </Form.Item>
 
         <Form.Item {...tailFormItemLayout}>
-          <Button type="primary" htmlType="submit">
-            Register
+          <Button type="primary" htmlType="submit" disabled={loading}>
+            Sign Up
           </Button>
+          <div>
+            Already have an account? <Link to="/login">Log in</Link>
+          </div>
+          {error && <Alert variant="danger">{error}</Alert>}
         </Form.Item>
       </Form>
       <div style={{ margin: "20px", padding: "15px" }}></div>
