@@ -11,9 +11,11 @@ const HomePage = () => {
     <div className="home">
       <h1>Hello Welcome {currentUser ? currentUser.displayName : ""}</h1>
       <div className="buttons">
-        <Button type="default" size="large" block>
-          CHECK IN
-        </Button>
+        <Link to="/checkin">
+          <Button type="default" size="large" block>
+              CHECK IN
+          </Button>
+        </Link>
         <Button type="default" size="large" block>
           CHECK OUT
         </Button>

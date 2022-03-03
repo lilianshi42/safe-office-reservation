@@ -7,6 +7,7 @@ import BookDeskPage from "./bookDeskPage/BookDesk";
 import ProfilePage from "./profilePage/Profile";
 import SignUp from "./SignUp/SignUp";
 import BookingsPage from "./bookingsPage/BookingsPage";
+import CheckInPage from "./checkInPage/CheckInPage";
 import { AuthProvider } from "../contexts/AuthContext";
 
 function Container() {
@@ -20,6 +21,7 @@ function Container() {
           <Route exact path="/profile" element={<ProfilePage />} />
           <Route exact path="/" element={<Login />} />
           <Route exact path="/sign-up" element={<SignUp />} />
+          <Route exact path="/checkin" element={<CheckInPage />} />
         </Routes>
         <NavFooter />
       </AuthProvider>
