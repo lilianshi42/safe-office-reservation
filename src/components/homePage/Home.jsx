@@ -22,9 +22,11 @@ const HomePage = () => {
             BOOK SEAT
           </Button>
         </Link>
-        <Button type="default" size="large" block>
-          MY BOOKINGS
-        </Button>
+        <Link to="/bookings">
+          <Button type="default" size="large" block>
+             MY BOOKINGS
+          </Button>
+        </Link>
       </div>
     </div>
   );
