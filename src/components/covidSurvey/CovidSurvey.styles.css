@@ -1,0 +1,9 @@
+.covid-survey>h3{
+    text-align: center;
+    margin-top: 20px;
+    font-size: 1.1em;
+}
+
+.covid-survey{
+    background-color: rgb(136, 233, 233);
+}

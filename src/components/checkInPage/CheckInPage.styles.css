@@ -1,0 +1,9 @@
+.checkin-page>h2{
+    text-align: center;
+    margin-top: 20px;
+}
+
+.checkin-page>.checkin-container{
+    width: 60%;
+    margin: 20px auto;
+}
