@@ -1,11 +1,11 @@
 import React from "react";
 import { Route, Routes } from "react-router-dom";
-import Login from "./Login/Login";
+import Login from "./login/Login";
 import HomePage from "./homePage/Home";
-import NavFooter from "./NavFooter/NavFooter";
-import BookDeskPage from "./bookDeskPage/BookDesk";
+import NavFooter from "./navFooter/NavFooter";
+import BookDeskPage from "./bookDeskPage/BookDeskPage";
 import ProfilePage from "./profilePage/Profile";
-import SignUp from "./SignUp/SignUp";
+import SignUp from "./signUp/SignUp";
 import BookingsPage from "./bookingsPage/BookingsPage";
 import CheckInPage from "./checkInPage/CheckInPage";
 import { AuthProvider } from "../contexts/AuthContext";

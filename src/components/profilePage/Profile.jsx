@@ -4,7 +4,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Alert } from "antd";
 
-const ProfilePage = () => {
+function ProfilePage() {
   const [error, setError] = useState("");
   const { currentUser, logOut } = useAuth();
   const navigate = useNavigate();
@@ -20,12 +20,11 @@ const ProfilePage = () => {
             onClick={() => {
               try {
                 logOut();
-                navigate('/');
+                navigate("/");
               } catch {
                 setError("Failed to log out");
               }
-            }}
-          >
+            }}>
             LOG OUT
           </div>
         ) : (
@@ -35,13 +34,12 @@ const ProfilePage = () => {
           className="link-to-other-feature"
           onClick={() => {
             navigate("/setting");
-          }}
-        >
+          }}>
           SETTINGS
         </div>
       </div>
     </div>
   );
-};
+}
 
 export default ProfilePage;

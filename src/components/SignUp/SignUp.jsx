@@ -37,7 +37,7 @@ const tailFormItemLayout = {
   },
 };
 
-const SignUp = () => {
+function SignUp() {
   const [loading, setLoading] = useState(false);
   const { signUp } = useAuth();
   const [error, setError] = useState("");
@@ -51,26 +51,15 @@ const SignUp = () => {
       await signUp(values.username, values.email, values.password);
       navigate("/home");
     } catch (err) {
-      setError(
-        "Failed to create an account, please double check your information",
-        err
-      );
+      setError("Failed to create an account, please double check your information", err);
     }
     setLoading(false);
   };
 
   return (
     <div style={{ margin: "20px", padding: "15px" }}>
-      <div
-        className="login-logo"
-        style={{ textAlign: "center", margin: "20px", padding: "15px" }}
-      >
-        <Image
-          src="https://cdn-images-1.medium.com/max/1200/1*IOMogY9xupXEg_ndWOb_4A.png"
-          alt="riot-logo"
-          width={100}
-          preview={false}
-        />
+      <div className="login-logo" style={{ textAlign: "center", margin: "20px", padding: "15px" }}>
+        <Image src="https://cdn-images-1.medium.com/max/1200/1*IOMogY9xupXEg_ndWOb_4A.png" alt="riot-logo" width={100} preview={false} />
       </div>
       <Form
         {...formItemLayout}
@@ -81,8 +70,7 @@ const SignUp = () => {
           remember: true,
         }}
         autoComplete="off"
-        scrollToFirstError
-      >
+        scrollToFirstError>
         <Form.Item
           style={{ padding: "5px" }}
           name="username"
@@ -94,8 +82,7 @@ const SignUp = () => {
               message: "Please input your user name!",
               whitespace: true,
             },
-          ]}
-        >
+          ]}>
           <Input />
         </Form.Item>
 
@@ -112,8 +99,7 @@ const SignUp = () => {
               required: true,
               message: "Please input your E-mail!",
             },
-          ]}
-        >
+          ]}>
           <Input />
         </Form.Item>
 
@@ -127,8 +113,7 @@ const SignUp = () => {
               message: "Please input your password!",
             },
           ]}
-          hasFeedback
-        >
+          hasFeedback>
           <Input.Password />
         </Form.Item>
 
@@ -149,20 +134,14 @@ const SignUp = () => {
                   return Promise.resolve();
                 }
 
-                return Promise.reject(
-                  new Error("The two passwords that you entered do not match!")
-                );
+                return Promise.reject(new Error("The two passwords that you entered do not match!"));
               },
             }),
-          ]}
-        >
+          ]}>
           <Input.Password />
         </Form.Item>
 
-        <Form.Item
-          {...tailFormItemLayout}
-          style={{ textAlign: "center", padding: "5px" }}
-        >
+        <Form.Item {...tailFormItemLayout} style={{ textAlign: "center", padding: "5px" }}>
           <Button type="primary" htmlType="submit" disabled={loading}>
             Sign Up
           </Button>
@@ -175,6 +154,6 @@ const SignUp = () => {
       <div style={{ margin: "20px", padding: "15px" }}></div>
     </div>
   );
-};
+}
 
 export default SignUp;

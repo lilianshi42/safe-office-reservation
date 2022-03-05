@@ -4,7 +4,7 @@ import "./Home.css";
 import { Link } from "react-router-dom";
 import { useAuth } from "../../contexts/AuthContext";
 
-const HomePage = () => {
+function HomePage() {
   const { currentUser } = useAuth();
 
   return (
@@ -13,7 +13,7 @@ const HomePage = () => {
       <div className="buttons">
         <Link to="/checkin">
           <Button type="default" size="large" block>
-              CHECK IN
+            CHECK IN
           </Button>
         </Link>
         <Button type="default" size="large" block>
@@ -26,12 +26,12 @@ const HomePage = () => {
         </Link>
         <Link to="/bookings">
           <Button type="default" size="large" block>
-             MY BOOKINGS
+            MY BOOKINGS
           </Button>
         </Link>
       </div>
     </div>
   );
-};
+}
 
 export default HomePage;

@@ -5,7 +5,7 @@ import { HomeOutlined, DesktopOutlined, UserOutlined } from "@ant-design/icons";
 
 import "./NavFooter.css";
 
-const NavFooter = () => {
+function NavFooter() {
   return (
     <Navbar bg="light" variant="light" fixed="bottom">
       <Navbar.Brand className="nav-logo">
@@ -27,6 +27,6 @@ const NavFooter = () => {
       </Nav>
     </Navbar>
   );
-};
+}
 
 export default NavFooter;
