@@ -8,22 +8,29 @@ import ProfilePage from "./profilePage/Profile";
 import SignUp from "./signUp/SignUp";
 import BookingsPage from "./bookingsPage/BookingsPage";
 import CheckInPage from "./checkInPage/CheckInPage";
+
 import { AuthProvider } from "../contexts/AuthContext";
+import { FloorsProvider } from "../contexts/FloorsContext";
+import { BookingsProvider } from "../contexts/BookingsContext";
 
 function Container() {
   return (
     <div>
       <AuthProvider>
-        <Routes>
-          <Route exact path="/home" element={<HomePage />} />
-          <Route exact path="/bookDesk" element={<BookDeskPage />} />
-          <Route exact path="/bookings" element={<BookingsPage />} />
-          <Route exact path="/profile" element={<ProfilePage />} />
-          <Route exact path="/" element={<Login />} />
-          <Route exact path="/sign-up" element={<SignUp />} />
-          <Route exact path="/checkin" element={<CheckInPage />} />
-        </Routes>
-        <NavFooter />
+        <BookingsProvider>
+          <FloorsProvider>
+            <Routes>
+              <Route exact path="/home" element={<HomePage />} />
+              <Route exact path="/bookDesk" element={<BookDeskPage />} />
+              <Route exact path="/bookings" element={<BookingsPage />} />
+              <Route exact path="/profile" element={<ProfilePage />} />
+              <Route exact path="/" element={<Login />} />
+              <Route exact path="/sign-up" element={<SignUp />} />
+              <Route exact path="/check-in" element={<CheckInPage />} />
+            </Routes>
+            <NavFooter />
+          </FloorsProvider>
+        </BookingsProvider>
       </AuthProvider>
       <NavFooter />
     </div>

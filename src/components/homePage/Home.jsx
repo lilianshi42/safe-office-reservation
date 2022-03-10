@@ -11,7 +11,7 @@ function HomePage() {
     <div className="home">
       <h1>Hello Welcome {currentUser ? currentUser.displayName : ""}</h1>
       <div className="buttons">
-        <Link to="/checkin">
+        <Link to="/check-in">
           <Button type="default" size="large" block>
             CHECK IN
           </Button>

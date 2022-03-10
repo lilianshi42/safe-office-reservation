@@ -100,13 +100,13 @@ let fakeDB = {
             checkOut: false
         }
     ],
-    CovidSurveys:[
+    CovidSurveys: [
         {
-            surveyId:100000001,
-            owner:"Tom",
-            date:"2022-04-01",
-            surveyQuestionsId:101,
-            answers:[]
+            surveyId: 100000001,
+            owner: "Tom",
+            date: "2022-04-01",
+            surveyQuestionsId: 101,
+            answers: []
 
         }
     ],
@@ -197,15 +197,15 @@ let fakeDB = {
     //note: needs to add validations later
     checkInByUsernameAndDate(username, date) {
         var booking = this.getBookingByUsernameAndDate(username, date);
-        booking.checkIn=true;
+        booking.checkIn = true;
     },
-        //note: needs to add validations later
-    addSurveyByUsernameAndDate(username, date,answers) {
-        this.surveys.push(        
+    //note: needs to add validations later
+    addSurveyByUsernameAndDate(username, date, answers) {
+        this.surveys.push(
             {
-            owner:username,
-            date,
-            answers
+                owner: username,
+                date,
+                answers
             }
         );
 
