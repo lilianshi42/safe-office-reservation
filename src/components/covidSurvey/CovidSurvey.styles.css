@@ -1,9 +1,32 @@
 .covid-survey>h3{
     text-align: center;
     margin-top: 20px;
-    font-size: 1.1em;
+    font-size: 1.5em;
 }
 
-.covid-survey{
-    background-color: rgb(136, 233, 233);
+.covid-survey-container{
+    font-family: 'Roboto', sans-serif;
+}
+
+
+.covid-survey-container>.covid-survey-title{
+    display: flex;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    font-weight: bolder;
+    font-size: 1.3em;
+}
+
+.covid-survey-container>.ant-checkbox-group{
+    width: 100%;
+}
+
+.covid-survey-container>.ant-checkbox-group>label{
+    display: flex;
+    font-size: 1.3em;
+    margin-bottom: 10px;
+}
+
+.covid-survey-container>.ant-checkbox-group>label>.ant-checkbox{
+    width: 10%;
 }
