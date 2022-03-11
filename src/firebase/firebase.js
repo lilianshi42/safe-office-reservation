@@ -63,10 +63,24 @@ export const deleteSingleDataToCollectionsDocument = async (collectionKey, data)
   return await batch.commit();
 }
 
-export const retrieveDataFromCollectionDocument = async (collectionKey) => {
-  const Col = collection(db, collectionKey);
-  const Snapshot = await getDocs(Col);
-  return Snapshot.docs.map(doc => doc.data());
+export const retrieveDataFromCollectionDocument = async (col) => {
+  try {
+    const colRef = collection(db, col);
+    const Snapshot = await getDocs(colRef)
+    return Snapshot.docs.map(doc => doc.data())
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+export const retrieveDocIdFromCollectionDocument = async (col) => {
+  try {
+    const colRef = collection(db, col);
+    const Snapshot = await getDocs(colRef)
+    return Snapshot.docs.map(doc => doc.id)
+  } catch (error) {
+    console.log(error)
+  }
 }
 
 export const addDataToCollection = async (col, item) => {
@@ -87,16 +101,6 @@ export const updateDataToCollection = async (col, id, item) => {
   }
 }
 
-export const getAllDataFromCollection = async (col) => {
-  try {
-    const colRef = collection(db, col);
-    const Snapshot = await getDocs(colRef)
-    return Snapshot.docs.map(doc => doc.data())
-  } catch (error) {
-    console.log(error)
-  }
-}
-
 export const getDataFromCollection = async (col, id) => {
   try {
     const itemDoc = doc(db, col, id);
@@ -108,7 +112,7 @@ export const getDataFromCollection = async (col, id) => {
 
 }
 
-export const deleteDataToCollection = async (col, id) => {
+export const deleteDataFromCollection = async (col, id) => {
   try {
     const itemDoc = doc(db, col, id);
     await deleteDoc(itemDoc)
@@ -119,4 +123,4 @@ export const deleteDataToCollection = async (col, id) => {
 
 export const auth = app.auth();
 export const firestore = app.firestore();
-export default app;
+export default app

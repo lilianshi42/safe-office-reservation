@@ -1,5 +1,5 @@
 import React, { useContext, useState, useEffect } from 'react';
-import { retrieveDataFromCollectionDocument, addSingleDataToCollectionsDocument, uploadDataCollectionsDocument } from '../firebase/firebase';
+import { retrieveDataFromCollectionDocument, retrieveDocIdFromCollectionDocument, updateDataToCollection, getDataFromCollection, deleteDataFromCollection, addDataToCollection } from '../firebase/firebase';
 
 const FloorsContext = React.createContext()
 
@@ -10,13 +10,34 @@ export function useFloors() {
 export const FloorsProvider = ({ children }) => {
     const [loading, setLoading] = useState(true);
     const [floorsData, setFloorsData] = useState(null);
+    const [docID, setDocID] = useState(null);
 
+    //get all
     function getAllFloors() {
         return floorsData
     }
 
+    //get by id
     function getFloorByFloorId(id) {
-        return floorsData.find(floor => floor.id === id);
+        let index = floorsData.find(floor => floor.id === id);
+        return getDataFromCollection(docID[index])
+    }
+
+    //add new floor
+    function addNewFloor(floor) {
+        addDataToCollection('floors', floor)
+    }
+
+    //delete floor by ID
+    function deleteFloor(id) {
+        let index = floorsData.find(floor => floor.id === id);
+        deleteDataFromCollection('floors', docID[index])
+    }
+
+    //update floor by ID
+    function updateFloor(id) {
+        let index = floorsData.find(floor => floor.id === id);
+        updateDataToCollection('floors', docID[index])
     }
 
     function getAllDesksByFloorId(id) {
@@ -36,26 +57,14 @@ export const FloorsProvider = ({ children }) => {
         return desks.filter(desk => !bookedDesksOnDate.includes(desk.id));
     }
 
-    function addNewFloor(floor) {
-        addSingleDataToCollectionsDocument('floors', floor)
-    }
-
-    //add new desk for floor
-    function addNewDeskForFloor(floorId, desk) {
-        let floor = this.getFloorByFloorId(floorId);
-        if (!floor) return false;
-        if (floor.desks === undefined) {
-            floor.desks = [];
-        }
-        setFloorsData(...floorsData, floor)
-        uploadDataCollectionsDocument(floor)
-        //floor.desks.push(desk);
-    }
-
     useEffect(() => {
-        const unsubscribe = retrieveDataFromCollectionDocument('floors')
+        let unsubscribe = retrieveDataFromCollectionDocument('floors')
             .then(data => {
                 setFloorsData(data)
+            })
+        unsubscribe = retrieveDocIdFromCollectionDocument('floors')
+            .then(data => {
+                setDocID(data)
             })
         setLoading(false)
         return unsubscribe
@@ -68,7 +77,8 @@ export const FloorsProvider = ({ children }) => {
         getAllDesksByFloorId,
         getAllDesksByFloorIdAndDate,
         addNewFloor,
-        addNewDeskForFloor
+        deleteFloor,
+        updateFloor
     }
     return (
         <FloorsContext.Provider value={value}>
