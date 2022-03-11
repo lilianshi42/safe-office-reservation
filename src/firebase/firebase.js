@@ -1,7 +1,7 @@
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/auth';
 import 'firebase/compat/firestore'
-import { getFirestore, collection, getDocs } from 'firebase/firestore/lite';
+import { getFirestore, collection, getDocs, getDoc, addDoc, updateDoc, deleteDoc, doc } from 'firebase/firestore/lite';
 
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
@@ -54,10 +54,67 @@ export const addSingleDataToCollectionsDocument = async (collectionKey, data) =>
   return await batch.commit();
 }
 
+
+export const deleteSingleDataToCollectionsDocument = async (collectionKey, data) => {
+  const collectionRef = firestore.collection(collectionKey);
+  const batch = firestore.batch();
+  const newDocRef = collectionRef.doc()
+  batch.delete(newDocRef, data)
+  return await batch.commit();
+}
+
 export const retrieveDataFromCollectionDocument = async (collectionKey) => {
   const Col = collection(db, collectionKey);
   const Snapshot = await getDocs(Col);
   return Snapshot.docs.map(doc => doc.data());
+}
+
+export const addDataToCollection = async (col, item) => {
+  try {
+    const colRef = collection(db, col);
+    await addDoc(colRef, item)
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+export const updateDataToCollection = async (col, id, item) => {
+  try {
+    const itemDoc = doc(db, col, id);
+    await updateDoc(itemDoc, item)
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+export const getAllDataFromCollection = async (col) => {
+  try {
+    const colRef = collection(db, col);
+    const Snapshot = await getDocs(colRef)
+    return Snapshot.docs.map(doc => doc.data())
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+export const getDataFromCollection = async (col, id) => {
+  try {
+    const itemDoc = doc(db, col, id);
+    const Snapshot = await getDoc(itemDoc)
+    return Snapshot.data()
+  } catch (error) {
+    console.log(error)
+  }
+
+}
+
+export const deleteDataToCollection = async (col, id) => {
+  try {
+    const itemDoc = doc(db, col, id);
+    await deleteDoc(itemDoc)
+  } catch (error) {
+    console.log(error)
+  }
 }
 
 export const auth = app.auth();
