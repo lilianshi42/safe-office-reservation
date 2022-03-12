@@ -35,9 +35,9 @@ export const FloorsProvider = ({ children }) => {
     }
 
     //update floor by ID
-    function updateFloor(id) {
+    function updateFloor(id, floor) {
         let index = floorsData.find(floor => floor.id === id);
-        updateDataToCollection('floors', docID[index])
+        updateDataToCollection('floors', docID[index], floor)
     }
 
     function getAllDesksByFloorId(id) {
@@ -58,16 +58,24 @@ export const FloorsProvider = ({ children }) => {
     }
 
     useEffect(() => {
-        let unsubscribe = retrieveDataFromCollectionDocument('floors')
+        let unmounted = false;
+        retrieveDataFromCollectionDocument('floors')
             .then(data => {
                 setFloorsData(data)
             })
-        unsubscribe = retrieveDocIdFromCollectionDocument('floors')
+            .then(retrieveDocIdFromCollectionDocument('floors')
+            )
             .then(data => {
                 setDocID(data)
             })
-        setLoading(false)
-        return unsubscribe
+            .then(() => {
+                if (!unmounted) {
+                    setLoading(false)
+                }
+            })
+
+
+        return () => { unmounted = true };
     }, [])
 
     const value = {

@@ -10,6 +10,7 @@ export function useAuth() {
 export function AuthProvider({ children }) {
     const [currentUser, setCurrentUser] = useState();
     const [loading, setLoading] = useState(true);
+    const [state, setState] = useState({});
 
     function signUp(displayName, email, password) {
         createUserProfileDocument(currentUser, { displayName })
@@ -25,11 +26,14 @@ export function AuthProvider({ children }) {
     }
 
     useEffect(() => {
-        const unsubscribe = auth.onAuthStateChanged(user => {
+        auth.onAuthStateChanged(user => {
             setCurrentUser(user)
         })
         setLoading(false)
-        return unsubscribe
+        console.log(state)
+        return () => {
+            setState({});
+        };
     }, [])
 
 

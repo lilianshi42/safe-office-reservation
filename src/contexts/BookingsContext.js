@@ -46,9 +46,9 @@ export const BookingsProvider = ({ children }) => {
     }
 
     //update bookings by ID
-    function updateBookings(id) {
+    function updateBookings(id, booking) {
         let index = bookingsData.find(floor => floor.id === id);
-        updateDataToCollection('bookings', docID[index])
+        updateDataToCollection('bookings', docID[index], booking)
     }
 
     //return true if user has a booking on that date
@@ -71,16 +71,24 @@ export const BookingsProvider = ({ children }) => {
     }
 
     useEffect(() => {
-        let unsubscribe = retrieveDataFromCollectionDocument('bookings')
+        let unmounted = false;
+        retrieveDataFromCollectionDocument('bookings')
             .then(data => {
                 setBookingsData(data)
             })
-        unsubscribe = retrieveDocIdFromCollectionDocument('bookings')
+            .then(retrieveDocIdFromCollectionDocument('bookings')
+            )
             .then(data => {
                 setDocID(data)
             })
-        setLoading(false)
-        return unsubscribe
+            .then(() => {
+                if (!unmounted) {
+                    setLoading(false)
+                }
+            })
+
+
+        return () => { unmounted = true };
     }, [])
 
 
