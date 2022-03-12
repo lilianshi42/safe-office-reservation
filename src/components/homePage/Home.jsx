@@ -6,10 +6,10 @@ import { useAuth } from "../../contexts/AuthContext";
 
 function HomePage() {
   const { currentUser } = useAuth();
-
+  const { email } = currentUser;
   return (
     <div className="home">
-      <h1>Hello Welcome {currentUser ? currentUser.displayName : ""}</h1>
+      <h1>Hello Welcome! user {currentUser ? email : ""}</h1>
       <div className="buttons">
         <Link to="/check-in">
           <Button type="default" size="large" block>
