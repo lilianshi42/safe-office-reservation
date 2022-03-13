@@ -8,6 +8,7 @@ import ProfilePage from "./profilePage/Profile";
 import SignUp from "./signUp/SignUp";
 import BookingsPage from "./bookingsPage/BookingsPage";
 import CheckInPage from "./checkInPage/CheckInPage";
+import CheckOutPage from "./checkOutPage/CheckOutPage";
 
 import { AuthProvider } from "../contexts/AuthContext";
 import { FloorsProvider } from "../contexts/FloorsContext";
@@ -27,6 +28,7 @@ function Container() {
               <Route exact path="/" element={<Login />} />
               <Route exact path="/sign-up" element={<SignUp />} />
               <Route exact path="/check-in" element={<CheckInPage />} />
+              <Route exact path="/check-out" element={<CheckOutPage />} />
             </Routes>
             <NavFooter />
           </FloorsProvider>

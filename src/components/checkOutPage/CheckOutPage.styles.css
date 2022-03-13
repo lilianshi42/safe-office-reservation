@@ -1,0 +1,9 @@
+.checkout-page>h2{
+    text-align: center;
+    margin-top: 20px;
+}
+
+.checkout-page>.checkout-container{
+    width: 60%;
+    margin: 20px auto;
+}

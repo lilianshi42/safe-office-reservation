@@ -16,9 +16,11 @@ function HomePage() {
             CHECK IN
           </Button>
         </Link>
-        <Button type="default" size="large" block>
+        <Link to="/check-out">
+          <Button type="default" size="large" block>
           CHECK OUT
-        </Button>
+          </Button>
+        </Link>
         <Link to="/bookDesk">
           <Button type="default" size="large" block>
             BOOK SEAT
