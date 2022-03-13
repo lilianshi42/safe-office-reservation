@@ -1,18 +1,30 @@
 import fakeDB from "../../utils/fakeDB";
 
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 
 import { Table, Pagination } from "react-bootstrap";
 
 import { BsCheck2Square } from "react-icons/bs";
 
+import { useBookings } from "../../contexts/BookingsContext";
+
 import "./BookingsPage.css";
 
 function BookingsPage() {
+
+  const{getBookingByUsernameAndDate} = useBookings();
+
   const [bookings, setBookings] = useState([]);
 
   useEffect(() => {
-    setBookings(fakeDB.getBookingByUsernameAndDate("Tom"));
+    const func = async()=>{
+      try{
+        setBookings(await getBookingByUsernameAndDate("Tom"));
+      }catch(err){
+        console.log(err);
+      }
+    }
+    func();
   }, []);
 
   let active = 1;
