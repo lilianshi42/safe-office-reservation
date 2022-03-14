@@ -1,6 +1,4 @@
-import fakeDB from "../../utils/fakeDB";
-
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 import { Table, Pagination } from "react-bootstrap";
 

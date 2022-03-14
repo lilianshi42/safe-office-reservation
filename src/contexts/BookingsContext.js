@@ -61,7 +61,7 @@ export const BookingsProvider = ({ children }) => {
         if (!date) {
             return bookingsData.filter(booking => booking.owner === username);
         }
-        return bookingsData.filter(booking => booking.owner === username && booking.bookingDate === date);
+        return bookingsData.find(booking => booking.owner === username && booking.bookingDate === date);
     }
 
     //note: needs to add validations later
