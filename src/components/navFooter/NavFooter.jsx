@@ -14,7 +14,7 @@ function NavFooter() {
         <RiotGamesLogo className="logo" />
       </Navbar.Brand>
       <Nav className="me-auto nav-options">
-        <Nav.Link className="nav-item" href="/home">
+        <Nav.Link className="nav-item" href="/">
           <HomeOutlined className="nav-icon" />
           <p className="nav-p">Home</p>
         </Nav.Link>

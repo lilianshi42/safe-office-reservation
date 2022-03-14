@@ -49,7 +49,7 @@ function SignUp() {
       setError("");
       setLoading(true);
       await signUp(values.username, values.email, values.password);
-      navigate("/home");
+      navigate("/");
     } catch (err) {
       setError("Failed to create an account, please double check your information", err);
     }

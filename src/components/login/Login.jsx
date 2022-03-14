@@ -16,7 +16,7 @@ function Login() {
       setError("");
       setLoading(true);
       await login(values.email, values.password);
-      navigate("/home");
+      navigate("/");
     } catch (err) {
       setError("Failed to login, cannot find your email");
     }

@@ -31,7 +31,7 @@ const CheckOutPage = () => {
 
   const handleSubmit = ()=>{
     alert("Check in successful!");
-    navigate("/home");
+    navigate("/");
   }
 
   const handleNavigate=()=>{

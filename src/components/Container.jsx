@@ -1,5 +1,5 @@
 import React from "react";
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, Navigate } from "react-router-dom";
 import Login from "./login/Login";
 import HomePage from "./homePage/Home";
 import NavFooter from "./navFooter/NavFooter";
@@ -10,31 +10,28 @@ import BookingsPage from "./bookingsPage/BookingsPage";
 import CheckInPage from "./checkInPage/CheckInPage";
 import CheckOutPage from "./checkOutPage/CheckOutPage";
 
-import { AuthProvider } from "../contexts/AuthContext";
-import { FloorsProvider } from "../contexts/FloorsContext";
-import { BookingsProvider } from "../contexts/BookingsContext";
+import { useAuth } from "../contexts/AuthContext";
 
 function Container() {
+  const { currentUser } = useAuth();
+
   return (
     <div>
-      <AuthProvider>
-        <BookingsProvider>
-          <FloorsProvider>
-            <Routes>
-              <Route exact path="/home" element={<HomePage />} />
-              <Route exact path="/bookDesk" element={<BookDeskPage />} />
-              <Route exact path="/bookings" element={<BookingsPage />} />
-              <Route exact path="/profile" element={<ProfilePage />} />
-              <Route exact path="/" element={<Login />} />
-              <Route exact path="/sign-up" element={<SignUp />} />
-              <Route exact path="/check-in" element={<CheckInPage />} />
-              <Route exact path="/check-out" element={<CheckOutPage />} />
-            </Routes>
-            <NavFooter />
-          </FloorsProvider>
-        </BookingsProvider>
-      </AuthProvider>
-      <NavFooter />
+      <Routes>
+        <Route
+          exact
+          path="/"
+          element={currentUser ? <HomePage /> : <Navigate to="/login" />}
+        />
+        <Route exact path="/bookDesk" element={<BookDeskPage />} />
+        <Route exact path="/bookings" element={<BookingsPage />} />
+        <Route exact path="/profile" element={<ProfilePage />} />
+        <Route exact path="/login" element={<Login />} />
+        <Route exact path="/sign-up" element={<SignUp />} />
+        <Route exact path="/check-in" element={<CheckInPage />} />
+        <Route exact path="/check-out" element={<CheckOutPage />} />
+      </Routes>
+      {currentUser ? <NavFooter /> : ""}
     </div>
   );
 }

@@ -36,7 +36,7 @@ function CheckInPage() {
     // call check in function
     alert("Check in successful!");
     console.log(currentUser);
-    navigate("/home");
+    navigate("/");
   }
 
   const handleNavigate=()=>{
