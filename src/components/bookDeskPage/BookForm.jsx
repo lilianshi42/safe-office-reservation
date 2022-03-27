@@ -1,35 +1,45 @@
 import React, { useEffect, useState } from "react";
+import FloorPlan from "./FloorPlan";
+import SeatBooking from "./SeatBooking";
 import { Row, Col, Button, Card, Form, Select, Calendar } from "antd";
+import { useNavigate } from "react-router-dom";
 
 function BookForm(props) {
   const [form] = Form.useForm();
   const [officeAddr, setOfficeAddr] = useState(null);
   const [floor, setFloor] = useState(null);
   const [date, setDate] = useState(null);
+  const navigate = useNavigate();
 
-  const onSubmit = () => {
-    console.log(floor);
+  const handleBackClick = () => {
+    navigate("/");
   };
-
-  useEffect(() => {
+  const handleNextClick = () => {
     setOfficeAddr(form.getFieldValue("officeAddr"));
     setFloor(form.getFieldValue("floor"));
     setDate(form.getFieldValue("date"));
-  }, [form, floor]);
+    //navigate("/floorPlan");
+  };
 
-  return (
+  useEffect(() => {
+    console.log(floor);
+    console.log(officeAddr);
+    console.log(date);
+  }, [floor, officeAddr, date]);
+
+  return !floor ? (
     <Row>
       <Col span={4} style={{ textAlign: "center", marginTop: "3rem", paddingLeft: "5px" }}>
-        <Button type="primary" shape="round">
+        <Button onClick={handleBackClick} type="primary" shape="round">
           Back
         </Button>
       </Col>
-      <Col span={16} style={{ marginTop: "5rem", padding: "5px 5px" }}>
+      <Col span={16} style={{ marginTop: "1rem", padding: "5px 5px" }}>
         <Card title="Book New Seat" bordered={false} headStyle={{ fontSize: "2em", textAlign: "center" }}>
-          <p style={{ fontSize: "1.3em", padding: "1rem" }}>
+          <p style={{ fontSize: "1.3em", padding: "0.8rem" }}>
             <b>Choose Date and Floor to See Available Seats</b>
           </p>
-          <Form form={form} layout="vertical" style={{ padding: "1rem" }}>
+          <Form form={form} layout="vertical" style={{ padding: "0.8rem" }}>
             <Form.Item name="officeAddr" label="Office Address" rules={[{ required: true, message: "Please select office address!" }]}>
               <Select placeholder="select office address">
                 <Select.Option value="office1">47W 13th St, Dubai</Select.Option>
@@ -49,11 +59,13 @@ function BookForm(props) {
         </Card>
       </Col>
       <Col span={4} style={{ textAlign: "center", marginTop: "3rem", paddingRight: "5px" }}>
-        <Button onClick={onSubmit} type="primary" htmlType="submit" shape="round">
+        <Button onClick={handleNextClick} type="primary" htmlType="submit" shape="round">
           Next
         </Button>
       </Col>
     </Row>
+  ) : (
+    <FloorPlan floor={floor} />
   );
 }
 
