@@ -1,10 +1,9 @@
-import fakeDB from "../../utils/fakeDB";
 import { useBookings } from "../../contexts/BookingsContext";
 import CovidSurvey from "../covidSurvey/CovidSurvey.component";
 import moment from 'moment';
 import { useEffect, useState } from "react";
 import { useAuth } from "../../contexts/AuthContext";
-import { Navigate, useNavigate } from "react-router-dom";
+import {  useNavigate } from "react-router-dom";
 
 import { Button } from "antd";
 
@@ -12,7 +11,7 @@ import "./CheckInPage.styles.css";
 
 function CheckInPage() {
   const { currentUser } = useAuth();
-  const {userHasBookingThatDay,getBookingByUsernameAndDate} = useBookings();
+  const {userHasBookingThatDay,getBookingByUsernameAndDate,checkInByUsernameAndDate} = useBookings();
   const [hasBooking, setHasBooking] = useState(false);
   const [checkedIn, setCheckedIn] = useState(false);
   const [answer,setAnswer] = useState([]);
@@ -21,9 +20,9 @@ function CheckInPage() {
 
   useEffect(() => {
     const date = moment().format('YYYY-MM-DD');
-    if (userHasBookingThatDay("Tom", date)) {
+    if (userHasBookingThatDay(currentUser.email, date)) {
       setHasBooking(true);
-      if (getBookingByUsernameAndDate("Tom", date).checkIn) {
+      if (getBookingByUsernameAndDate(currentUser.email, date).checkIn) {
         setCheckedIn(true);
       }
     }
@@ -31,12 +30,19 @@ function CheckInPage() {
 
   const changeAnswer = values=>setAnswer(values);
 
-  const handleSubmit = ()=>{
-    //to do:
-    // call check in function
-    alert("Check in successful!");
-    console.log(currentUser);
-    navigate("/");
+  const handleSubmit = async ()=>{
+    try{
+      //to do:
+      // call check in function
+      const date = moment().format('YYYY-MM-DD');
+      await checkInByUsernameAndDate(currentUser.email, date);
+      alert("Check in successful!");
+
+      navigate("/");
+    }catch(err){
+      console.log(err);
+    }
+
   }
 
   const handleNavigate=()=>{

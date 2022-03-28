@@ -1,4 +1,3 @@
-import fakeDB from "../../utils/fakeDB";
 import { useBookings } from "../../contexts/BookingsContext";
 import { useEffect, useState } from "react";
 import { useAuth } from "../../contexts/AuthContext";
@@ -18,11 +17,11 @@ const CheckOutPage = () => {
 
   useEffect(() => {
     const date = moment().format('YYYY-MM-DD');
-    if (userHasBookingThatDay("Tom", date)) {
+    if (userHasBookingThatDay(currentUser.email, date)) {
       setHasBooking(true);
-      if (getBookingByUsernameAndDate("Tom", date).checkIn) {
+      if (getBookingByUsernameAndDate(currentUser.email, date).checkIn) {
         setCheckedIn(true);
-        if(getBookingByUsernameAndDate("Tom", date).checkOut){
+        if(getBookingByUsernameAndDate(currentUser.email, date).checkOut){
             setCheckedOut(true);
         }
       }

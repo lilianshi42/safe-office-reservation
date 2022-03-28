@@ -1,5 +1,5 @@
 import React, { useContext, useState, useEffect } from 'react';
-import { retrieveDataFromCollectionDocument, retrieveDocIdFromCollectionDocument, getDataFromCollection, addDataToCollection, deleteDataFromCollection, updateDataToCollection } from '../firebase/firebase';
+import { retrieveDataFromCollectionDocument, retrieveDocIdFromCollectionDocument, getDataFromCollection, addDataToCollection, deleteDataFromCollection, updateDataToCollection,retrieveDocIdFromCollectionByFieldValue } from '../firebase/firebase';
 
 const BookingsContext = React.createContext()
 
@@ -65,9 +65,18 @@ export const BookingsProvider = ({ children }) => {
     }
 
     //note: needs to add validations later
-    function checkInByUsernameAndDate(username, date) {
-        var booking = getBookingByUsernameAndDate(username, date);
-        booking.checkIn = true;
+    async function checkInByUsernameAndDate(username, date) {
+        try{
+            var booking = getBookingByUsernameAndDate(username, date);
+            booking.checkIn = true;
+            let index = await retrieveDocIdFromCollectionByFieldValue('bookings',username,date);
+            console.log(index);
+           // let index = bookingsData.find(booking => booking.username === username && booking.date === date);
+            //updateDataToCollection('bookings', docID[index], booking)
+        }catch(err){
+            console.log(err);
+        }
+
     }
 
     useEffect(() => {

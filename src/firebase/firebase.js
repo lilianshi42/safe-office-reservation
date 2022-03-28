@@ -2,6 +2,7 @@ import firebase from 'firebase/compat/app';
 import 'firebase/compat/auth';
 import 'firebase/compat/firestore'
 import { getFirestore, collection, getDocs, getDoc, addDoc, updateDoc, deleteDoc, doc } from 'firebase/firestore/lite';
+import { query, where} from "firebase/firestore";
 
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
@@ -73,6 +74,21 @@ export const retrieveDataFromCollectionDocument = async (col) => {
   }
 }
 
+export const retrieveDocIdFromCollectionByFieldValue = async (col,owner,date) => {
+  //try {
+  //   const colRef = collection(db, col);
+  //   const q = query(collection(db, "bookings"), where("owner", "==", "jerry@email.com"));
+
+  //   const querySnapshot = await getDocs(q);
+  //   querySnapshot.forEach((doc) => {
+  //     // doc.data() is never undefined for query doc snapshots
+  //     console.log(doc.id, " => ", doc.data());
+  //   });
+  // } catch (error) {
+  //   console.log(error)
+  // }
+}
+
 export const retrieveDocIdFromCollectionDocument = async (col) => {
   try {
     const colRef = collection(db, col);
@@ -82,6 +98,8 @@ export const retrieveDocIdFromCollectionDocument = async (col) => {
     console.log(error)
   }
 }
+
+
 
 export const addDataToCollection = async (col, item) => {
   try {
