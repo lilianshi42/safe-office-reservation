@@ -74,19 +74,34 @@ export const retrieveDataFromCollectionDocument = async (col) => {
   }
 }
 
-export const retrieveDocIdFromCollectionByFieldValue = async (col,owner,date) => {
-  //try {
-  //   const colRef = collection(db, col);
-  //   const q = query(collection(db, "bookings"), where("owner", "==", "jerry@email.com"));
+export const updateChecking = async (col,owner,date) => {
+  try {
+    firebase.firestore().collection("bookings").where("owner", "==", owner).where("bookingDate", "==", date)
+    .get()
+    .then(function(querySnapshot) {
+        querySnapshot.forEach(function(doc) {
+            //console.log(doc.id, " => ", doc.data());
+            doc.ref.update({"checkIn": true})
+        });
+   })
+  } catch (error) {
+    console.log(error)
+  }
+}
 
-  //   const querySnapshot = await getDocs(q);
-  //   querySnapshot.forEach((doc) => {
-  //     // doc.data() is never undefined for query doc snapshots
-  //     console.log(doc.id, " => ", doc.data());
-  //   });
-  // } catch (error) {
-  //   console.log(error)
-  // }
+export const updateCheckOut = async (col,owner,date) => {
+  try {
+    firebase.firestore().collection("bookings").where("owner", "==", owner).where("bookingDate", "==", date)
+    .get()
+    .then(function(querySnapshot) {
+        querySnapshot.forEach(function(doc) {
+            //console.log(doc.id, " => ", doc.data());
+            doc.ref.update({"checkOut": true})
+        });
+   })
+  } catch (error) {
+    console.log(error)
+  }
 }
 
 export const retrieveDocIdFromCollectionDocument = async (col) => {

@@ -1,5 +1,5 @@
 import React, { useContext, useState, useEffect } from 'react';
-import { retrieveDataFromCollectionDocument, retrieveDocIdFromCollectionDocument, getDataFromCollection, addDataToCollection, deleteDataFromCollection, updateDataToCollection,retrieveDocIdFromCollectionByFieldValue } from '../firebase/firebase';
+import { retrieveDataFromCollectionDocument, retrieveDocIdFromCollectionDocument, getDataFromCollection, addDataToCollection, deleteDataFromCollection, updateDataToCollection,updateChecking,updateCheckOut} from '../firebase/firebase';
 
 const BookingsContext = React.createContext()
 
@@ -67,12 +67,19 @@ export const BookingsProvider = ({ children }) => {
     //note: needs to add validations later
     async function checkInByUsernameAndDate(username, date) {
         try{
-            var booking = getBookingByUsernameAndDate(username, date);
-            booking.checkIn = true;
-            let index = await retrieveDocIdFromCollectionByFieldValue('bookings',username,date);
-            console.log(index);
-           // let index = bookingsData.find(booking => booking.username === username && booking.date === date);
-            //updateDataToCollection('bookings', docID[index], booking)
+            await updateChecking('bookings',username,date);
+
+        }catch(err){
+            console.log(err);
+        }
+
+    }
+
+    //note: needs to add validations later
+    async function checkOutByUsernameAndDate(username, date) {
+        try{
+            await updateCheckOut('bookings',username,date);
+
         }catch(err){
             console.log(err);
         }
@@ -110,6 +117,7 @@ export const BookingsProvider = ({ children }) => {
         userHasBookingThatDay,
         getBookingByUsernameAndDate,
         checkInByUsernameAndDate,
+        checkOutByUsernameAndDate,
     }
     return (
         <BookingsContext.Provider value={value}>

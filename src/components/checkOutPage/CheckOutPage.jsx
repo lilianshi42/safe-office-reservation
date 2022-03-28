@@ -9,7 +9,7 @@ import "./CheckOutPage.styles.css";
 
 const CheckOutPage = () => {
   const { currentUser } = useAuth();
-  const {userHasBookingThatDay,getBookingByUsernameAndDate} = useBookings();
+  const {userHasBookingThatDay,getBookingByUsernameAndDate,checkOutByUsernameAndDate} = useBookings();
   const [hasBooking, setHasBooking] = useState(false);
   const [checkedIn, setCheckedIn] = useState(false);
   const [checkedOut, setCheckedOut] = useState(false);
@@ -28,9 +28,16 @@ const CheckOutPage = () => {
     }
   }, [currentUser]);
 
-  const handleSubmit = ()=>{
-    alert("Check in successful!");
-    navigate("/");
+  const handleSubmit = async()=>{
+    try{
+      const date = moment().format('YYYY-MM-DD');
+      await checkOutByUsernameAndDate(currentUser.email, date);
+      alert("Check in successful!");
+      navigate("/");
+    }catch(err){
+      console.log(err);
+    }
+
   }
 
   const handleNavigate=()=>{
@@ -43,13 +50,22 @@ const CheckOutPage = () => {
       <div className="checkout-container">
         {hasBooking ? (
           checkedIn === true ? (
+            checkedOut===false?(            
             <div >
               <p>Are you sure you want to check out?</p>
               <div className="buttons-wrapper-in-checkOut" style={{"marginLeft":"38%","marginTop":"20px"}}>
                 <Button  type="primary" onClick={handleSubmit}>Check Out</Button>
                 <Button type="danger" onClick={handleNavigate} style={{"marginLeft":"20px"}}>Back to Home</Button>
               </div>
-               </div>
+            </div>):(
+              <div className="no-checkin">
+                <p style={{"textAlign":"center","fontSize":"1.2em"}}>You already checked out!</p>
+                <div className="buttons-wrapper-in-checkOut" style={{"marginLeft":"38%","marginTop":"20px"}}>
+                <Button  type="primary" onClick={handleSubmit} disabled>Check Out</Button>
+                <Button type="danger" onClick={handleNavigate} style={{"marginLeft":"20px"}}>Back to Home</Button>
+              </div>
+            </div>
+            )
             
           ) : (
             <div className="no-checkin">
