@@ -4,11 +4,11 @@ import { useNavigate } from "react-router-dom";
 
 function FloorPlan(props) {
     //const [floor, setFloor] = useState(props.floor);
-
+    
     const navigate = useNavigate();
-    const handleBackClick = () => {
-        navigate("/");
-    }
+    // const handleBackClick = () => {
+    //     navigate("/");
+    // }
     const handleNextClick = () => {
         navigate("/seatSelect");
     }
@@ -20,7 +20,8 @@ function FloorPlan(props) {
   return (
     <Row>
       <Col span={4} style={{ textAlign: "center", marginTop: "3rem", paddingLeft: "5px" }}>
-        <Button onClick={handleBackClick} type="primary" shape="round">
+        {/* <Button onClick={handleBackClick} type="primary" shape="round"> */}
+        <Button onClick={props.handleBackClick} type="primary" shape="round">
           Back
         </Button>
       </Col>

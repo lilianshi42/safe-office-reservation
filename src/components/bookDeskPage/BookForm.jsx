@@ -11,14 +11,22 @@ function BookForm(props) {
   const [date, setDate] = useState(null);
   const navigate = useNavigate();
 
+  const [stage, setStage]=useState(0);
+
   const handleBackClick = () => {
-    navigate("/");
+   // navigate("/");
+    if(stage===0){
+      navigate("/");
+    }else{
+      setStage(stage=>stage-1);
+    }
   };
   const handleNextClick = () => {
     setOfficeAddr(form.getFieldValue("officeAddr"));
     setFloor(form.getFieldValue("floor"));
     setDate(form.getFieldValue("date"));
     //navigate("/floorPlan");
+    setStage(stage=>stage+1);
   };
 
   useEffect(() => {
@@ -27,7 +35,7 @@ function BookForm(props) {
     console.log(date);
   }, [floor, officeAddr, date]);
 
-  return !floor ? (
+  return stage===0 ? (
     <Row>
       <Col span={4} style={{ textAlign: "center", marginTop: "3rem", paddingLeft: "5px" }}>
         <Button onClick={handleBackClick} type="primary" shape="round">
@@ -65,7 +73,7 @@ function BookForm(props) {
       </Col>
     </Row>
   ) : (
-    <FloorPlan floor={floor} />
+    <FloorPlan floor={floor} handleBackClick={handleBackClick}/>
   );
 }
 
