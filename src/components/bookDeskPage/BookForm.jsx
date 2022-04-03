@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import FloorPlan from "./FloorPlan";
-import SeatBooking from "./SeatBooking";
 import { Row, Col, Button, Card, Form, Select, Calendar, message } from "antd";
 import { useNavigate } from "react-router-dom";
 import moment from "moment";

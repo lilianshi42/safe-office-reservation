@@ -8,11 +8,10 @@ function FloorPlan(props) {
   const [stage, setStage] = useState(props.stage);
 
   const handleNextClick = () => {
-      setStage((stage) => stage + 1);
-  }
+    setStage((stage) => stage + 1);
+  };
 
-  return (
-    stage === 1 ? (
+  return stage === 1 ? (
     <Row>
       <Col span={4} style={{ textAlign: "center", marginTop: "3rem", paddingLeft: "5px" }}>
         <Button onClick={props.handleBackClick} type="primary" shape="round">
@@ -40,9 +39,9 @@ function FloorPlan(props) {
           Next
         </Button>
       </Col>
-    </Row> ) : (
-      <SeatBooking handleBackClick={props.handleBackClick}/>
-    )
+    </Row>
+  ) : (
+    <SeatBooking handleBackClick={props.handleBackClick} date={props.date} officeAddr={props.officeAddr} floor={props.floor} />
   );
 }
 

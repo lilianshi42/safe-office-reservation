@@ -1,12 +1,14 @@
-import React from "react";
-import { Row, Col, Button, Card, message } from "antd";
+import React, { useState } from "react";
+import { Row, Col, Button, Card } from "antd";
+import BookConfirmation from "./BookConfirmation";
 
 function SeatBooking(props) {
+  const [isFinished, setIsFinished] = useState(false);
 
-    const handleFinishClick = () => {
-       message.success("Booking completed!");
-    }
-  return (
+  const handleFinishClick = () => {
+    setIsFinished(true);
+  };
+  return !isFinished ? (
     <Row>
       <Col span={4} style={{ textAlign: "center", marginTop: "3rem", paddingLeft: "5px" }}>
         <Button onClick={props.handleBackClick} type="primary" shape="round">
@@ -24,6 +26,8 @@ function SeatBooking(props) {
         </Button>
       </Col>
     </Row>
+  ) : (
+    <BookConfirmation date={props.date} officeAddr={props.officeAddr} floor={props.floor} />
   );
 }
 
