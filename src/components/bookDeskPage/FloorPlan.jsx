@@ -1,14 +1,18 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Row, Col, Button, Card } from "antd";
 import floor1 from "../../assets/floor-plans/floor1.jpg";
 import floor2 from "../../assets/floor-plans/floor2.png";
+import SeatBooking from "./SeatBooking";
 
 function FloorPlan(props) {
-  useEffect(() => {
-    //console.log(props);
-  }, []);
+  const [stage, setStage] = useState(props.stage);
+
+  const handleNextClick = () => {
+      setStage((stage) => stage + 1);
+  }
 
   return (
+    stage === 1 ? (
     <Row>
       <Col span={4} style={{ textAlign: "center", marginTop: "3rem", paddingLeft: "5px" }}>
         <Button onClick={props.handleBackClick} type="primary" shape="round">
@@ -28,18 +32,17 @@ function FloorPlan(props) {
               Floor: <b>{props.floor}</b>
             </Col>
           </Row>
-          <Row>
-            <img alt="5th-floor-plan" src={floor1} />
-            <img alt="6th-floor-plan" src={floor2} />
-          </Row>
+          <Row style={{ marginTop: "1rem" }}>{props.floor === "5th" ? <img alt="5th-floor-plan" src={floor1} /> : <img alt="6th-floor-plan" src={floor2} />}</Row>
         </Card>
       </Col>
       <Col span={4} style={{ textAlign: "center", marginTop: "3rem", paddingRight: "5px" }}>
-        <Button type="primary" htmlType="submit" shape="round">
+        <Button onClick={handleNextClick} type="primary" htmlType="submit" shape="round">
           Next
         </Button>
       </Col>
-    </Row>
+    </Row> ) : (
+      <SeatBooking handleBackClick={props.handleBackClick}/>
+    )
   );
 }
 

@@ -15,7 +15,6 @@ function BookForm(props) {
   const [stage, setStage] = useState(0);
 
   const handleBackClick = () => {
-    // navigate("/");
     if (stage === 0) {
       navigate("/");
     } else {
@@ -77,7 +76,7 @@ function BookForm(props) {
       </Col>
     </Row>
   ) : (
-    <FloorPlan officeAddr={officeAddr} floor={floor} date={date} handleBackClick={handleBackClick} />
+    <FloorPlan stage={stage} officeAddr={officeAddr} floor={floor} date={date} handleBackClick={handleBackClick} />
   );
 }
 

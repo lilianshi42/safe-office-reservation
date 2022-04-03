@@ -1,19 +1,15 @@
 import React from "react";
-import { Row, Col, Button, Card } from "antd";
-import { useNavigate } from "react-router-dom";
+import { Row, Col, Button, Card, message } from "antd";
 
 function SeatBooking(props) {
-    const navigate = useNavigate();
-    const handleBackClick = () => {
-        navigate(-1);
-    }
+
     const handleFinishClick = () => {
-        console.log("Booking completed!");
+       message.success("Booking completed!");
     }
   return (
     <Row>
       <Col span={4} style={{ textAlign: "center", marginTop: "3rem", paddingLeft: "5px" }}>
-        <Button onClick={handleBackClick} type="primary" shape="round">
+        <Button onClick={props.handleBackClick} type="primary" shape="round">
           Back
         </Button>
       </Col>
