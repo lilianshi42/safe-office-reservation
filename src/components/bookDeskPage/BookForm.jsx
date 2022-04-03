@@ -1,32 +1,36 @@
 import React, { useEffect, useState } from "react";
 import FloorPlan from "./FloorPlan";
 import SeatBooking from "./SeatBooking";
-import { Row, Col, Button, Card, Form, Select, Calendar } from "antd";
+import { Row, Col, Button, Card, Form, Select, Calendar, message } from "antd";
 import { useNavigate } from "react-router-dom";
+import moment from "moment";
 
 function BookForm(props) {
   const [form] = Form.useForm();
   const [officeAddr, setOfficeAddr] = useState(null);
   const [floor, setFloor] = useState(null);
-  const [date, setDate] = useState(null);
+  const [date, setDate] = useState(moment().format("YYYY-MM-DD"));
   const navigate = useNavigate();
 
-  const [stage, setStage]=useState(0);
+  const [stage, setStage] = useState(0);
 
   const handleBackClick = () => {
-   // navigate("/");
-    if(stage===0){
+    // navigate("/");
+    if (stage === 0) {
       navigate("/");
-    }else{
-      setStage(stage=>stage-1);
+    } else {
+      setStage((stage) => stage - 1);
     }
   };
   const handleNextClick = () => {
-    setOfficeAddr(form.getFieldValue("officeAddr"));
-    setFloor(form.getFieldValue("floor"));
-    setDate(form.getFieldValue("date"));
-    //navigate("/floorPlan");
-    setStage(stage=>stage+1);
+    if (!form.getFieldValue("officeAddr") || !form.getFieldValue("floor")) {
+      message.warning("Please complete all mandatory fields!");
+    } else {
+      setOfficeAddr(form.getFieldValue("officeAddr"));
+      setFloor(form.getFieldValue("floor"));
+      setDate(moment(form.getFieldValue("date")).format("YYYY-MM-DD"));
+      setStage((stage) => stage + 1);
+    }
   };
 
   useEffect(() => {
@@ -35,7 +39,7 @@ function BookForm(props) {
     console.log(date);
   }, [floor, officeAddr, date]);
 
-  return stage===0 ? (
+  return stage === 0 ? (
     <Row>
       <Col span={4} style={{ textAlign: "center", marginTop: "3rem", paddingLeft: "5px" }}>
         <Button onClick={handleBackClick} type="primary" shape="round">
@@ -50,8 +54,8 @@ function BookForm(props) {
           <Form form={form} layout="vertical" style={{ padding: "0.8rem" }}>
             <Form.Item name="officeAddr" label="Office Address" rules={[{ required: true, message: "Please select office address!" }]}>
               <Select placeholder="select office address">
-                <Select.Option value="office1">47W 13th St, Dubai</Select.Option>
-                <Select.Option value="office2">123 Toronto Main St, Toronto</Select.Option>
+                <Select.Option value="Dubai">47W 13th St, Dubai</Select.Option>
+                <Select.Option value="Toronto">123 Toronto Main St, Toronto</Select.Option>
               </Select>
             </Form.Item>
             <Form.Item name="floor" label="Floor" rules={[{ required: true, message: "Please select a floor!" }]}>
@@ -73,7 +77,7 @@ function BookForm(props) {
       </Col>
     </Row>
   ) : (
-    <FloorPlan floor={floor} handleBackClick={handleBackClick}/>
+    <FloorPlan officeAddr={officeAddr} floor={floor} date={date} handleBackClick={handleBackClick} />
   );
 }
 
