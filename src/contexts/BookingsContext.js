@@ -1,5 +1,5 @@
 import React, { useContext, useState, useEffect } from 'react';
-import { retrieveDataFromCollectionDocument, retrieveDocIdFromCollectionDocument, getDataFromCollection, addDataToCollection, deleteDataFromCollection, updateDataToCollection,updateChecking,updateCheckOut} from '../firebase/firebase';
+import { retrieveDataFromCollectionDocument, retrieveDocIdFromCollectionDocument, getDataFromCollection, addDataToCollection, deleteDataFromCollection, updateDataToCollection, updateChecking, updateCheckOut } from '../firebase/firebase';
 
 const BookingsContext = React.createContext()
 
@@ -11,6 +11,7 @@ export const BookingsProvider = ({ children }) => {
     const [loading, setLoading] = useState(true);
     const [bookingsData, setBookingsData] = useState(null);
     const [docID, setDocID] = useState(null);
+    const [state, setState] = useState({});
 
     //get all
     function getAllBookings() {
@@ -66,10 +67,10 @@ export const BookingsProvider = ({ children }) => {
 
     //note: needs to add validations later
     async function checkInByUsernameAndDate(username, date) {
-        try{
-            await updateChecking('bookings',username,date);
+        try {
+            await updateChecking('bookings', username, date);
 
-        }catch(err){
+        } catch (err) {
             console.log(err);
         }
 
@@ -77,34 +78,28 @@ export const BookingsProvider = ({ children }) => {
 
     //note: needs to add validations later
     async function checkOutByUsernameAndDate(username, date) {
-        try{
-            await updateCheckOut('bookings',username,date);
+        try {
+            await updateCheckOut('bookings', username, date);
 
-        }catch(err){
+        } catch (err) {
             console.log(err);
         }
 
     }
 
     useEffect(() => {
-        let unmounted = false;
         retrieveDataFromCollectionDocument('bookings')
             .then(data => {
                 setBookingsData(data)
             })
-            .then(retrieveDocIdFromCollectionDocument('bookings')
-            )
+        retrieveDocIdFromCollectionDocument('bookings')
             .then(data => {
                 setDocID(data)
             })
-            .then(() => {
-                if (!unmounted) {
-                    setLoading(false)
-                }
-            })
-
-
-        return () => { unmounted = true };
+        setLoading(false)
+        return () => {
+            setState({});
+        };
     }, [])
 
 

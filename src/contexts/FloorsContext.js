@@ -11,6 +11,7 @@ export const FloorsProvider = ({ children }) => {
     const [loading, setLoading] = useState(true);
     const [floorsData, setFloorsData] = useState(null);
     const [docID, setDocID] = useState(null);
+    const [state, setState] = useState({});
 
     //get all
     function getAllFloors() {
@@ -58,24 +59,18 @@ export const FloorsProvider = ({ children }) => {
     }
 
     useEffect(() => {
-        let unmounted = false;
         retrieveDataFromCollectionDocument('floors')
             .then(data => {
                 setFloorsData(data)
             })
-            .then(retrieveDocIdFromCollectionDocument('floors')
-            )
+        retrieveDocIdFromCollectionDocument('floors')
             .then(data => {
                 setDocID(data)
             })
-            .then(() => {
-                if (!unmounted) {
-                    setLoading(false)
-                }
-            })
-
-
-        return () => { unmounted = true };
+        setLoading(false)
+        return () => {
+            setState({});
+        };
     }, [])
 
     const value = {
