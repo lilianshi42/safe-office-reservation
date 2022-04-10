@@ -6,10 +6,10 @@ import { useAuth } from "../../contexts/AuthContext";
 
 function HomePage() {
   const { currentUser } = useAuth();
-  const { email } = currentUser;
+  const { displayName } = currentUser;
   return (
     <div className="home">
-      <h1>Hello Welcome! user {currentUser ? email : ""}</h1>
+      <h1>Hello Welcome! {currentUser ? displayName : ""}</h1>
       <div className="buttons">
         <Link to="/check-in">
           <Button type="default" size="large" block>
@@ -18,7 +18,7 @@ function HomePage() {
         </Link>
         <Link to="/check-out">
           <Button type="default" size="large" block>
-          CHECK OUT
+            CHECK OUT
           </Button>
         </Link>
         <Link to="/bookDesk">

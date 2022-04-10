@@ -14,7 +14,12 @@ export function AuthProvider({ children }) {
 
     function signUp(displayName, email, password) {
         createUserProfileDocument(currentUser, { displayName })
-        return auth.createUserWithEmailAndPassword(email, password)
+        auth.createUserWithEmailAndPassword(email, password).then((res) => {
+            const user = auth.currentUser;
+            return user.updateProfile({
+                displayName: displayName
+            })
+        })
     }
 
     function login(email, password) {
