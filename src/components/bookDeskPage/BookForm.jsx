@@ -10,7 +10,6 @@ function BookForm(props) {
   const [floor, setFloor] = useState(null);
   const [date, setDate] = useState(moment().format("YYYY-MM-DD"));
   const navigate = useNavigate();
-  const { booking } = props;
   const [stage, setStage] = useState(0);
 
   const handleBackClick = () => {
@@ -32,7 +31,9 @@ function BookForm(props) {
   };
   const id = Math.floor(Math.random() * 1000001);
   useEffect(() => {
-    booking.setFloor(id, officeAddr, floor, date);
+    console.log(floor);
+    console.log(officeAddr);
+    console.log(date);
   }, [floor, officeAddr, date]);
 
   return stage === 0 ? (
@@ -110,7 +111,6 @@ function BookForm(props) {
       floor={floor}
       date={date}
       handleBackClick={handleBackClick}
-      booking={booking}
     />
   );
 }

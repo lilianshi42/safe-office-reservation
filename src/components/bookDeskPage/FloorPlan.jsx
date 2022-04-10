@@ -6,7 +6,6 @@ import SeatBooking from "./SeatBooking";
 
 function FloorPlan(props) {
   const [stage, setStage] = useState(props.stage);
-  const { booking } = props;
 
   const handleNextClick = () => {
     setStage((stage) => stage + 1);
@@ -71,7 +70,6 @@ function FloorPlan(props) {
       date={props.date}
       officeAddr={props.officeAddr}
       floor={props.floor}
-      booking={booking}
     />
   );
 }

@@ -25,7 +25,7 @@ export const BookingsProvider = ({ children }) => {
     }
 
     //add new bookings
-    function addNewBookings(username, date, deskId, floorId) {
+    function addNewBookings(username, date, deskId, floorId, officeAddress) {
         const id = Math.floor(Math.random() * 1000001);
         let newBooking = {
             id,
@@ -34,6 +34,7 @@ export const BookingsProvider = ({ children }) => {
             createdAT: new Date(),
             deskId,
             floorId,
+            officeAddress,
             checkIn: false,
             checkOut: false
         }
