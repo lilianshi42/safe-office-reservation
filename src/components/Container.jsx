@@ -12,7 +12,7 @@ import CheckOutPage from "./checkOutPage/CheckOutPage";
 import FloorPlan from "./bookDeskPage/FloorPlan";
 import { useAuth } from "../contexts/AuthContext";
 import SeatBooking from "./bookDeskPage/SeatBooking";
-
+import DeskPage from "./deskPage/DeskPage";
 function Container() {
   const { currentUser } = useAuth();
 
@@ -26,6 +26,7 @@ function Container() {
         />
         <Route exact path="/bookDesk" element={<BookDeskPage />} />
         <Route exact path="/bookings" element={<BookingsPage />} />
+        <Route exact path="/desk" element={<DeskPage />} />
         <Route exact path="/profile" element={<ProfilePage />} />
         <Route
           exact
