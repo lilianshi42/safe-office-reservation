@@ -5,23 +5,23 @@ import { Table, Pagination } from "react-bootstrap";
 import { BsCheck2Square } from "react-icons/bs";
 
 import { useBookings } from "../../contexts/BookingsContext";
+import { useAuth } from "../../contexts/AuthContext";
 
 import "./BookingsPage.css";
 
 function BookingsPage() {
-
-  const{getBookingByUsernameAndDate} = useBookings();
-
+  const { getBookingByUsernameAndDate } = useBookings();
+  const { currentUser } = useAuth();
   const [bookings, setBookings] = useState([]);
 
   useEffect(() => {
-    const func = async()=>{
-      try{
-        setBookings(await getBookingByUsernameAndDate("Tom"));
-      }catch(err){
+    const func = async () => {
+      try {
+        setBookings(await getBookingByUsernameAndDate(currentUser.email));
+      } catch (err) {
         console.log(err);
       }
-    }
+    };
     func();
   }, []);
 
