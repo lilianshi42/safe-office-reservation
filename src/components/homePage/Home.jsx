@@ -12,7 +12,7 @@ function HomePage() {
       <h1>Hello Welcome! {currentUser ? displayName : ""}</h1>
       <div className="buttons">
         <Link to="/check-in">
-          <Button type="default" size="large" block>
+          <Button type="default" size="large" name="check-in" block>
             CHECK IN
           </Button>
         </Link>
