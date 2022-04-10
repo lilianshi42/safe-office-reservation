@@ -23,7 +23,7 @@ function BookingsPage() {
       }
     };
     func();
-  }, []);
+  }, [currentUser]);
 
   let active = 1;
   let items = [];

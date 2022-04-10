@@ -105,6 +105,7 @@ export const BookingsProvider = ({ children }) => {
 
 
     const value = {
+        state,
         getAllBookings,
         getBookingsByBookingsId,
         addNewBookings,

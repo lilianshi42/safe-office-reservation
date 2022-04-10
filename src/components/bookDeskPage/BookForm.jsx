@@ -29,7 +29,7 @@ function BookForm(props) {
       setStage((stage) => stage + 1);
     }
   };
-  const id = Math.floor(Math.random() * 1000001);
+
   useEffect(() => {
     console.log(floor);
     console.log(officeAddr);

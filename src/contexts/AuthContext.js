@@ -35,7 +35,6 @@ export function AuthProvider({ children }) {
             setCurrentUser(user)
         })
         setLoading(false)
-        console.log(state)
         return () => {
             setState({});
         };
@@ -43,6 +42,7 @@ export function AuthProvider({ children }) {
 
 
     const value = {
+        state,
         currentUser,
         login,
         signUp,

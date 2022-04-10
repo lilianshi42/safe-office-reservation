@@ -74,6 +74,7 @@ export const FloorsProvider = ({ children }) => {
     }, [])
 
     const value = {
+        state,
         floorsData,
         getAllFloors,
         getFloorByFloorId,
