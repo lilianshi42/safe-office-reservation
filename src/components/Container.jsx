@@ -19,11 +19,19 @@ function Container() {
   return (
     <div>
       <Routes>
-        <Route exact path="/" element={currentUser ? <HomePage /> : <Navigate to="/login" />} />
+        <Route
+          exact
+          path="/"
+          element={currentUser ? <HomePage /> : <Navigate to="/login" />}
+        />
         <Route exact path="/bookDesk" element={<BookDeskPage />} />
         <Route exact path="/bookings" element={<BookingsPage />} />
         <Route exact path="/profile" element={<ProfilePage />} />
-        <Route exact path="/login" element={<Login />} />
+        <Route
+          exact
+          path="/login"
+          element={currentUser ? <Navigate to="/" /> : <Login />}
+        />
         <Route exact path="/sign-up" element={<SignUp />} />
         <Route exact path="/check-in" element={<CheckInPage />} />
         <Route exact path="/check-out" element={<CheckOutPage />} />

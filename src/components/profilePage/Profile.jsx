@@ -8,11 +8,9 @@ function ProfilePage() {
   const [error, setError] = useState("");
   const { currentUser, logOut } = useAuth();
   const navigate = useNavigate();
-  const { email } = currentUser;
 
   return (
     <div className="profile">
-      <h1>Hello Welcome! user {email}</h1>
       {error && <Alert message={error} type="warning" closable />}
       <div className="profile-links">
         {currentUser ? (
