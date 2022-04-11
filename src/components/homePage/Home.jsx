@@ -1,12 +1,19 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Button } from "antd";
 import "./Home.css";
 import { Link } from "react-router-dom";
 import { useAuth } from "../../contexts/AuthContext";
+import { useBookings } from "../../contexts/BookingsContext";
 
 function HomePage() {
   const { currentUser } = useAuth();
   const { displayName } = currentUser;
+  const { refreshData } = useBookings();
+
+  useEffect(() => {
+    refreshData();
+  }, []);
+
   return (
     <div className="home">
       <h1>Hello Welcome! {currentUser ? displayName : ""}</h1>

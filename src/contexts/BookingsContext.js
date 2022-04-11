@@ -12,6 +12,7 @@ export const BookingsProvider = ({ children }) => {
     const [bookingsData, setBookingsData] = useState(null);
     const [docID, setDocID] = useState(null);
     const [state, setState] = useState({});
+    const [flag, setFlag] = useState(false)
 
     //get all
     function getAllBookings() {
@@ -88,6 +89,10 @@ export const BookingsProvider = ({ children }) => {
 
     }
 
+    function refreshData(){
+        setFlag(!flag)
+    }
+
     useEffect(() => {
         retrieveDataFromCollectionDocument('bookings')
             .then(data => {
@@ -101,11 +106,12 @@ export const BookingsProvider = ({ children }) => {
         return () => {
             setState({});
         };
-    }, [])
+    }, [flag])
 
 
     const value = {
         state,
+        refreshData,
         getAllBookings,
         getBookingsByBookingsId,
         addNewBookings,
