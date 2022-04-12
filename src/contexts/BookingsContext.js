@@ -67,6 +67,9 @@ export const BookingsProvider = ({ children }) => {
         return bookingsData.find(booking => booking.owner === username && booking.bookingDate === date);
     }
 
+    function getBookingByDate(date) {
+        return bookingsData.filter(booking => booking.bookingDate === date);
+    }
     //note: needs to add validations later
     async function checkInByUsernameAndDate(username, date) {
         try {
@@ -121,6 +124,7 @@ export const BookingsProvider = ({ children }) => {
         getBookingByUsernameAndDate,
         checkInByUsernameAndDate,
         checkOutByUsernameAndDate,
+        getBookingByDate,
     }
     return (
         <BookingsContext.Provider value={value}>

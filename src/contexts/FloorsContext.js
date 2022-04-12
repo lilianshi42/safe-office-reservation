@@ -1,5 +1,6 @@
 import React, { useContext, useState, useEffect } from 'react';
 import { retrieveDataFromCollectionDocument, retrieveDocIdFromCollectionDocument, updateDataToCollection, getDataFromCollection, deleteDataFromCollection, addDataToCollection } from '../firebase/firebase';
+import { useBookings } from "./BookingsContext";
 
 const FloorsContext = React.createContext()
 
@@ -12,7 +13,8 @@ export const FloorsProvider = ({ children }) => {
     const [floorsData, setFloorsData] = useState(null);
     const [docID, setDocID] = useState(null);
     const [state, setState] = useState({});
-
+    const {getBookingByDate } = useBookings();
+    
     //get all
     function getAllFloors() {
         return floorsData
@@ -20,8 +22,8 @@ export const FloorsProvider = ({ children }) => {
 
     //get by id
     function getFloorByFloorId(id) {
-        let index = floorsData.find(floor => floor.id === id);
-        return getDataFromCollection(docID[index])
+        return floorsData.find(floor => floor.id === id);
+        //return getDataFromCollection(docID[index])
     }
 
     //add new floor
@@ -42,15 +44,16 @@ export const FloorsProvider = ({ children }) => {
     }
 
     function getAllDesksByFloorId(id) {
-        let floor = this.getFloorByFloorId(id);
+        let floor = getFloorByFloorId(id);
         return floor ? floor.desks : [];
     }
 
     function getAllDesksByFloorIdAndDate(id, date) {
-        let desks = this.getAllDesksByFloorId(id);
+        let desks = getAllDesksByFloorId(id);
         if (desks.length === 0) return [];
         let bookedDesksOnDate = [];
-        this.bookings.forEach(booking => {
+        const bookings = getBookingByDate(date);
+        bookings.forEach(booking => {
             if (booking.bookingDate === date) {
                 bookedDesksOnDate.push(booking.deskId);
             }

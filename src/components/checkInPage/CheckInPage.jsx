@@ -1,4 +1,5 @@
 import { useBookings } from "../../contexts/BookingsContext";
+import { useFloors } from "../../contexts/FloorsContext";
 import CovidSurvey from "../covidSurvey/CovidSurvey.component";
 import moment from "moment";
 import { useEffect, useState } from "react";
@@ -16,11 +17,16 @@ function CheckInPage() {
     getBookingByUsernameAndDate,
     checkInByUsernameAndDate,
   } = useBookings();
+
+ const{getAllDesksByFloorIdAndDate,getAllDesksByFloorId,getAllFloors,getFloorByFloorId}= useFloors();
+
   const [hasBooking, setHasBooking] = useState(false);
   const [checkedIn, setCheckedIn] = useState(false);
   const [answer, setAnswer] = useState([]);
 
   const navigate = useNavigate();
+
+  const [desks, setDesks] = useState([]);
 
   useEffect(() => {
     const date = moment().format("YYYY-MM-DD");
@@ -30,6 +36,11 @@ function CheckInPage() {
         setCheckedIn(true);
       }
     }
+    const desks = getAllDesksByFloorIdAndDate(101,date);
+    console.log(desks);
+    //getAllDesksByFloorId(101);
+    //getFloorByFloorId(101);
+//    getAllFloors();
   }, []);
 
   const changeAnswer = (values) => setAnswer(values);

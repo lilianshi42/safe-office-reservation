@@ -15,6 +15,8 @@ import CheckInConfirmation from "./checkInPage/CheckInConfirmation";
 import CheckOutConfirmation from "./checkOutPage/CheckOutConfirmation";
 function Container() {
   const { currentUser } = useAuth();
+  console.log("container");
+  console.log(currentUser);
 
   return (
     <div>
