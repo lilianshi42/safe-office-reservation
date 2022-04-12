@@ -18,6 +18,7 @@
 }
 
 .covid-survey-container>.ant-checkbox-group{
+    margin-left: 2rem;
     width: 100%;
 }
 

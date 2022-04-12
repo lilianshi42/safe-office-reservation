@@ -50,8 +50,8 @@ const CheckOutPage = () => {
           checkedIn === true ? (
             checkedOut === false ? (
               <div>
-                <p>Are you sure you want to check out?</p>
-                <div className="buttons-wrapper-in-checkOut" style={{ marginLeft: "38%", marginTop: "20px" }}>
+                <p style={{ textAlign: "center", fontSize: "1.2em" }}>Are you sure you want to check out?</p>
+                <div className="buttons-wrapper-in-checkOut" style={{ textAlign: "center", marginTop: "20px" }}>
                   <Button type="primary" onClick={handleSubmit}>
                     Check Out
                   </Button>

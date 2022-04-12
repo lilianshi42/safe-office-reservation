@@ -65,8 +65,8 @@ function CheckInPage() {
           checkedIn === false ? (
             <div>
               <CovidSurvey changeAnswer={changeAnswer} />
-              <div className="buttons-wrapper-in-checkin" style={{ marginLeft: "38%", marginTop: "20px" }}>
-                <Button type="primary" onClick={handleSubmit}>
+              <div className="buttons-wrapper-in-checkin" style={{ textAlign: "center", marginTop: "20px" }}>
+                <Button type="primary" onClick={handleSubmit} style={{ marginLeft: "20px"}}>
                   Check In
                 </Button>
                 <Button onClick={handleNavigate} style={{ marginLeft: "20px" }}>
