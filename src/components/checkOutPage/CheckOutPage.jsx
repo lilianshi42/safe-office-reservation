@@ -55,20 +55,17 @@ const CheckOutPage = () => {
                   <Button type="primary" onClick={handleSubmit}>
                     Check Out
                   </Button>
-                  <Button type="danger" onClick={handleNavigate} style={{ marginLeft: "20px" }}>
-                    Back to Home
+                  <Button onClick={handleNavigate} style={{ marginLeft: "20px" }}>
+                    Cancel
                   </Button>
                 </div>
               </div>
             ) : (
               <div className="no-checkin">
                 <p style={{ textAlign: "center", fontSize: "1.2em" }}>You already checked out!</p>
-                <div className="buttons-wrapper-in-checkOut" style={{ marginLeft: "38%", marginTop: "20px" }}>
-                  <Button type="primary" onClick={handleSubmit} disabled>
-                    Check Out
-                  </Button>
-                  <Button type="danger" onClick={handleNavigate} style={{ marginLeft: "20px" }}>
-                    Back to Home
+                <div className="buttons-wrapper-in-checkOut" style={{ textAlign: "center", marginTop: "20px" }}>
+                  <Button type="primary" onClick={handleNavigate}>
+                    Home
                   </Button>
                 </div>
               </div>
@@ -76,12 +73,9 @@ const CheckOutPage = () => {
           ) : (
             <div className="no-checkin">
               <p style={{ textAlign: "center", fontSize: "1.2em" }}>You need to check in first</p>
-              <div className="buttons-wrapper-in-checkOut" style={{ marginLeft: "38%", marginTop: "20px" }}>
-                <Button type="primary" onClick={handleSubmit} disabled>
-                  Check Out
-                </Button>
-                <Button type="danger" onClick={handleNavigate} style={{ marginLeft: "20px" }}>
-                  Back to Home
+              <div className="buttons-wrapper-in-checkOut" style={{ textAlign: "center", marginTop: "20px" }}>
+                <Button type="primary" onClick={handleNavigate}>
+                  Home
                 </Button>
               </div>
             </div>
@@ -89,12 +83,11 @@ const CheckOutPage = () => {
         ) : (
           <div className="no-booking">
             <p style={{ textAlign: "center", fontSize: "1.2em" }}>You don't have any booking today</p>
-            <Button type="primary" onClick={handleSubmit} disabled>
-              Check Out
-            </Button>
-            <Button type="danger" onClick={handleNavigate} style={{ marginLeft: "20px" }}>
-              Back to Home
-            </Button>
+            <div className="buttons-wrapper-in-checkOut" style={{ textAlign: "center", marginTop: "20px" }}>
+              <Button type="primary" onClick={handleNavigate}>
+                Home
+              </Button>
+            </div>
           </div>
         )}
       </div>

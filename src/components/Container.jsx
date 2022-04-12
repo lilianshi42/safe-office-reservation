@@ -28,8 +28,8 @@ function Container() {
         <Route exact path="/sign-up" element={<SignUp />} />
         <Route exact path="/check-in" element={<CheckInPage />} />
         <Route exact path="/check-out" element={<CheckOutPage />} />
-        <Route path="/check-in-success" element={<CheckInConfirmation />} />
-        <Route path="/check-out-success" element={<CheckOutConfirmation />} />
+        <Route exact path="/check-in-success" element={<CheckInConfirmation />} />
+        <Route exact path="/check-out-success" element={<CheckOutConfirmation />} />
       </Routes>
       {currentUser ? <NavFooter /> : ""}
     </div>

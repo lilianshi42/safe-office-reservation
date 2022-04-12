@@ -11,11 +11,7 @@ import "./CheckInPage.styles.css";
 
 function CheckInPage() {
   const { currentUser } = useAuth();
-  const {
-    userHasBookingThatDay,
-    getBookingByUsernameAndDate,
-    checkInByUsernameAndDate,
-  } = useBookings();
+  const { userHasBookingThatDay, getBookingByUsernameAndDate, checkInByUsernameAndDate } = useBookings();
   const [hasBooking, setHasBooking] = useState(false);
   const [checkedIn, setCheckedIn] = useState(false);
   const [answer, setAnswer] = useState([]);
@@ -58,46 +54,37 @@ function CheckInPage() {
           checkedIn === false ? (
             <div>
               <CovidSurvey changeAnswer={changeAnswer} />
-              <div
-                className="buttons-wrapper-in-checkin"
-                style={{ marginLeft: "38%", marginTop: "20px" }}
-              >
+              <div className="buttons-wrapper-in-checkin" style={{ marginLeft: "38%", marginTop: "20px" }}>
                 <Button type="primary" onClick={handleSubmit}>
                   Check In
                 </Button>
-                <Button
-                  type="danger"
-                  onClick={handleNavigate}
-                  style={{ marginLeft: "20px" }}
-                >
+                <Button type="danger" onClick={handleNavigate} style={{ marginLeft: "20px" }}>
                   Back to Home
                 </Button>
               </div>
             </div>
           ) : (
             <>
-              <div className="already-checkin">
-                You already checked in today
+              <div className="no-checkin">
+                <p style={{ textAlign: "center", fontSize: "1.2em" }}>You already checked in!</p>
+                <div style={{ textAlign: "center", marginTop: "20px" }}>
+                  <Button type="primary" onClick={handleNavigate}>
+                    Home
+                  </Button>
+                </div>
               </div>
-              <Button
-                type="danger"
-                onClick={handleNavigate}
-                style={{ marginLeft: "20px" }}
-              >
-                Back to Home
-              </Button>
             </>
           )
         ) : (
           <>
-            <div className="no-checkin">You don't have any booking today</div>
-            <Button
-              type="danger"
-              onClick={handleNavigate}
-              style={{ marginLeft: "20px" }}
-            >
-              Back to Home
-            </Button>
+            <div className="no-checkin">
+              <p style={{ textAlign: "center", fontSize: "1.2em" }}>You don't have any bookings today!</p>
+              <div style={{ textAlign: "center", marginTop: "20px" }}>
+                <Button type="primary" onClick={handleNavigate}>
+                  Home
+                </Button>
+              </div>
+            </div>
           </>
         )}
       </div>
