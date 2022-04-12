@@ -61,7 +61,7 @@ const CheckOutPage = () => {
                 </div>
               </div>
             ) : (
-              <div className="no-checkin">
+              <div>
                 <p style={{ textAlign: "center", fontSize: "1.2em" }}>You already checked out!</p>
                 <div className="buttons-wrapper-in-checkOut" style={{ textAlign: "center", marginTop: "20px" }}>
                   <Button type="primary" onClick={handleNavigate}>
@@ -71,7 +71,7 @@ const CheckOutPage = () => {
               </div>
             )
           ) : (
-            <div className="no-checkin">
+            <div>
               <p style={{ textAlign: "center", fontSize: "1.2em" }}>You need to check in first</p>
               <div className="buttons-wrapper-in-checkOut" style={{ textAlign: "center", marginTop: "20px" }}>
                 <Button type="primary" onClick={handleNavigate}>
@@ -81,7 +81,7 @@ const CheckOutPage = () => {
             </div>
           )
         ) : (
-          <div className="no-booking">
+          <div>
             <p style={{ textAlign: "center", fontSize: "1.2em" }}>You don't have any booking today</p>
             <div className="buttons-wrapper-in-checkOut" style={{ textAlign: "center", marginTop: "20px" }}>
               <Button type="primary" onClick={handleNavigate}>

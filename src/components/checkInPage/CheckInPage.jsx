@@ -12,13 +12,9 @@ import "./CheckInPage.styles.css";
 
 function CheckInPage() {
   const { currentUser } = useAuth();
-  const {
-    userHasBookingThatDay,
-    getBookingByUsernameAndDate,
-    checkInByUsernameAndDate,
-  } = useBookings();
+  const { userHasBookingThatDay, getBookingByUsernameAndDate, checkInByUsernameAndDate } = useBookings();
 
- const{getAllDesksByFloorIdAndDate,getAllDesksByFloorId,getAllFloors,getFloorByFloorId}= useFloors();
+  const { getAllDesksByFloorIdAndDate, getAllDesksByFloorId, getAllFloors, getFloorByFloorId } = useFloors();
 
   const [hasBooking, setHasBooking] = useState(false);
   const [checkedIn, setCheckedIn] = useState(false);
@@ -36,11 +32,11 @@ function CheckInPage() {
         setCheckedIn(true);
       }
     }
-    const desks = getAllDesksByFloorIdAndDate(101,date);
+    const desks = getAllDesksByFloorIdAndDate(101, date);
     console.log(desks);
     //getAllDesksByFloorId(101);
     //getFloorByFloorId(101);
-//    getAllFloors();
+    //    getAllFloors();
   }, []);
 
   const changeAnswer = (values) => setAnswer(values);
@@ -69,46 +65,37 @@ function CheckInPage() {
           checkedIn === false ? (
             <div>
               <CovidSurvey changeAnswer={changeAnswer} />
-              <div
-                className="buttons-wrapper-in-checkin"
-                style={{ marginLeft: "38%", marginTop: "20px" }}
-              >
+              <div className="buttons-wrapper-in-checkin" style={{ marginLeft: "38%", marginTop: "20px" }}>
                 <Button type="primary" onClick={handleSubmit}>
                   Check In
                 </Button>
-                <Button
-                  type="danger"
-                  onClick={handleNavigate}
-                  style={{ marginLeft: "20px" }}
-                >
-                  Back to Home
+                <Button onClick={handleNavigate} style={{ marginLeft: "20px" }}>
+                  Cancel
                 </Button>
               </div>
             </div>
           ) : (
             <>
-              <div className="already-checkin">
-                You already checked in today
+              <div>
+                <p style={{ textAlign: "center", fontSize: "1.2em" }}>You already checked in today!</p>
+                <div style={{ textAlign: "center", marginTop: "20px" }}>
+                  <Button type="primary" onClick={handleNavigate}>
+                    Home
+                  </Button>
+                </div>
               </div>
-              <Button
-                type="danger"
-                onClick={handleNavigate}
-                style={{ marginLeft: "20px" }}
-              >
-                Back to Home
-              </Button>
             </>
           )
         ) : (
           <>
-            <div className="no-checkin">You don't have any booking today</div>
-            <Button
-              type="danger"
-              onClick={handleNavigate}
-              style={{ marginLeft: "20px" }}
-            >
-              Back to Home
-            </Button>
+            <div>
+              <p style={{ textAlign: "center", fontSize: "1.2em" }}>You don't have any bookings today!</p>
+              <div style={{ textAlign: "center", marginTop: "20px" }}>
+                <Button type="primary" onClick={handleNavigate}>
+                  Home
+                </Button>
+              </div>
+            </div>
           </>
         )}
       </div>

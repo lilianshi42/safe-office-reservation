@@ -29,7 +29,11 @@
     font-size: small;
 }
 
-
+.nav-item {
+    text-decoration: none;
+    color: black;
+    margin-top: 1em;
+}
 
 @media only screen and (max-width: 1200px) {
     .logo {
