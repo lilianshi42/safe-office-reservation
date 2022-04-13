@@ -1,15 +1,31 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Row, Col, Button, Card } from "antd";
 import BookConfirmation from "./BookConfirmation";
+import { useFloors } from "../../contexts/FloorsContext";
+import moment from "moment";
+import { Select } from "antd";
 
 function SeatBooking(props) {
   const [isFinished, setIsFinished] = useState(false);
   const [officeSeat, setOfficeSeat] = useState(null);
+  const [availableSeat, setAvailableSeat] = useState([]);
+  const { getAllDesksByLocationAndDate, updateSelectedSeatIntoDB } =
+    useFloors();
+  const date = moment().format("YYYY-MM-DD");
+  const { Option } = Select;
+
+  useEffect(() => {
+    setAvailableSeat(getAllDesksByLocationAndDate(props.officeAddr, props.date));
+  }, []);
 
   const handleFinishClick = () => {
-    setOfficeSeat(12); // 假如选择座位号12
+    updateSelectedSeatIntoDB(props.officeAddr, officeSeat, props.date);
     setIsFinished(true);
   };
+
+  function handleChange(value) {
+    setOfficeSeat(value);
+  }
   return !isFinished ? (
     <Row>
       <Col
@@ -26,7 +42,27 @@ function SeatBooking(props) {
           bordered={false}
           headStyle={{ fontSize: "2em", textAlign: "center" }}
         >
-          this is seat booking page
+          {availableSeat.length === 0 ? (
+            <div>
+              no available seat this team, please go back and choose your office
+              again
+            </div>
+          ) : (
+            <Select
+              defaultValue={"choose your seat number"}
+              style={{ width: 1000 }}
+              onChange={handleChange}
+            >
+              {availableSeat.map((seat) => (
+                <Option value={seat.seatNum} key={seat.seatNum}>
+                  {"Office: " +
+                    seat.officeLocation +
+                    ", Seat Number:" +
+                    seat.seatNum}
+                </Option>
+              ))}
+            </Select>
+          )}
         </Card>
       </Col>
       <Col

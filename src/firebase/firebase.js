@@ -2,7 +2,7 @@ import firebase from 'firebase/compat/app';
 import 'firebase/compat/auth';
 import 'firebase/compat/firestore'
 import { getFirestore, collection, getDocs, getDoc, addDoc, updateDoc, deleteDoc, doc } from 'firebase/firestore/lite';
-import { query, where} from "firebase/firestore";
+// import { query, where } from "firebase/firestore";
 
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
@@ -74,32 +74,61 @@ export const retrieveDataFromCollectionDocument = async (col) => {
   }
 }
 
-export const updateChecking = async (col,owner,date) => {
+export const updateChecking = async (col, owner, date) => {
   try {
     firebase.firestore().collection("bookings").where("owner", "==", owner).where("bookingDate", "==", date)
-    .get()
-    .then(function(querySnapshot) {
-        querySnapshot.forEach(function(doc) {
-            //console.log(doc.id, " => ", doc.data());
-            doc.ref.update({"checkIn": true})
+      .get()
+      .then(function (querySnapshot) {
+        querySnapshot.forEach(function (doc) {
+          //console.log(doc.id, " => ", doc.data());
+          doc.ref.update({ "checkIn": true })
         });
-   })
+      })
   } catch (error) {
     console.log(error)
   }
 }
 
-export const updateCheckOut = async (col,owner,date) => {
+export const updateCheckOut = async (col, owner, date) => {
   try {
     firebase.firestore().collection("bookings").where("owner", "==", owner).where("bookingDate", "==", date)
-    .get()
-    .then(function(querySnapshot) {
-        querySnapshot.forEach(function(doc) {
-            //console.log(doc.id, " => ", doc.data());
-            doc.ref.update({"checkOut": true})
+      .get()
+      .then(function (querySnapshot) {
+        querySnapshot.forEach(function (doc) {
+          //console.log(doc.id, " => ", doc.data());
+          doc.ref.update({ "checkOut": true })
         });
-   })
+      })
   } catch (error) {
+    console.log(error)
+  }
+}
+
+export const updateSeatSelected = async (col, location, seatNum, date) => {
+  try {
+    firebase.firestore().collection(col).where("officeLocation", "==", location).where("seatNum", "==", seatNum)
+      .get()
+      .then(function (querySnapshot) {
+        querySnapshot.forEach(function (doc) {
+          doc.ref.update({ "availability": false, "date": date })
+        });
+      })
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+export const resetFloorsData = async () => {
+  try {
+    firebase.firestore().collection("floors")
+      .get()
+      .then(function (querySnapshot) {
+        querySnapshot.forEach(function (doc) {
+          doc.ref.update({ "date": "1999-09-09", "availability": true })
+        });
+      })
+  }
+  catch (error) {
     console.log(error)
   }
 }

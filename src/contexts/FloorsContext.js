@@ -1,5 +1,5 @@
 import React, { useContext, useState, useEffect } from 'react';
-import { retrieveDataFromCollectionDocument, retrieveDocIdFromCollectionDocument, updateDataToCollection, getDataFromCollection, deleteDataFromCollection, addDataToCollection } from '../firebase/firebase';
+import { retrieveDataFromCollectionDocument, retrieveDocIdFromCollectionDocument, updateDataToCollection, updateSeatSelected, deleteDataFromCollection, addDataToCollection } from '../firebase/firebase';
 import { useBookings } from "./BookingsContext";
 
 const FloorsContext = React.createContext()
@@ -10,11 +10,12 @@ export function useFloors() {
 
 export const FloorsProvider = ({ children }) => {
     const [loading, setLoading] = useState(true);
-    const [floorsData, setFloorsData] = useState(null);
-    const [docID, setDocID] = useState(null);
+    const [floorsData, setFloorsData] = useState([]);
+    const [docID, setDocID] = useState([]);
     const [state, setState] = useState({});
-    const {getBookingByDate } = useBookings();
-    
+    const { getBookingByDate } = useBookings();
+    const [flag, setFlag] = useState(false)
+
     //get all
     function getAllFloors() {
         return floorsData
@@ -61,6 +62,33 @@ export const FloorsProvider = ({ children }) => {
         return desks.filter(desk => !bookedDesksOnDate.includes(desk.id));
     }
 
+    function getAllDesksByLocationAndDate(location, date) {
+        if (floorsData.length === 0) return;
+        console.log(date)
+        let desks = [];
+        floorsData.forEach(seat => {
+            if (seat.officeLocation === location && seat.date !== date && seat.availability === true) {
+                desks.push(seat)
+            }
+        })
+
+        return desks
+    }
+
+    async function updateSelectedSeatIntoDB(location, seatNum, date) {
+        try {
+            await updateSeatSelected('floors', location, seatNum, date);
+
+        } catch (err) {
+            console.log(err);
+        }
+
+    }
+
+    function refreshFloorsData() {
+        setFlag(!flag)
+    }
+
     useEffect(() => {
         retrieveDataFromCollectionDocument('floors')
             .then(data => {
@@ -74,15 +102,18 @@ export const FloorsProvider = ({ children }) => {
         return () => {
             setState({});
         };
-    }, [])
+    }, [flag])
 
     const value = {
         state,
         floorsData,
+        refreshFloorsData,
         getAllFloors,
+        updateSelectedSeatIntoDB,
         getFloorByFloorId,
         getAllDesksByFloorId,
         getAllDesksByFloorIdAndDate,
+        getAllDesksByLocationAndDate,
         addNewFloor,
         deleteFloor,
         updateFloor
