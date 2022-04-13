@@ -17,10 +17,6 @@
     justify-content: space-between;
 }
 
-/* .nav-item {
-    
-} */
-
 .nav-icon {
     font-size: 200%;
 }
@@ -33,6 +29,10 @@
     text-decoration: none;
     color: black;
     margin-top: 1em;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 @media only screen and (max-width: 1200px) {
