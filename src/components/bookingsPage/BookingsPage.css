@@ -1,6 +1,7 @@
 .bookings-page {
     width: 60%;
     margin: 5rem auto;
+    height: 110vh;
 }
 
 .bookings-page>h2 {

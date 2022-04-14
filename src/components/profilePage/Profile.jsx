@@ -2,7 +2,7 @@ import "./Profile.css";
 import { useAuth } from "../../contexts/AuthContext";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Alert } from "antd";
+import { Alert, Button } from "antd";
 
 function ProfilePage() {
   const [error, setError] = useState("");
@@ -25,7 +25,9 @@ function ProfilePage() {
               }
             }}
           >
-            LOG OUT
+            <Button type="default" size="large" name="check-in" block>
+              LOG OUT
+            </Button>
           </div>
         ) : (
           ""
@@ -36,7 +38,9 @@ function ProfilePage() {
             navigate("/setting");
           }}
         >
-          SETTINGS
+          <Button type="default" size="large" name="check-in" block>
+            SETTINGS
+          </Button>
         </div>
       </div>
     </div>
