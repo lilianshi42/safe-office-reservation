@@ -2,8 +2,9 @@ import React, { useEffect, useState } from "react";
 import { Row, Col, Button, Card } from "antd";
 import BookConfirmation from "./BookConfirmation";
 import { useFloors } from "../../contexts/FloorsContext";
-import moment from "moment";
 import { Select } from "antd";
+import floor1 from "../../assets/floor-plans/floor1.jpg";
+import floor2 from "../../assets/floor-plans/floor2.png";
 
 function SeatBooking(props) {
   const [isFinished, setIsFinished] = useState(false);
@@ -11,16 +12,21 @@ function SeatBooking(props) {
   const [availableSeat, setAvailableSeat] = useState([]);
   const { getAllDesksByLocationAndDate, updateSelectedSeatIntoDB } =
     useFloors();
-  const date = moment().format("YYYY-MM-DD");
   const { Option } = Select;
 
   useEffect(() => {
-    setAvailableSeat(getAllDesksByLocationAndDate(props.officeAddr, props.date));
+    setAvailableSeat(
+      getAllDesksByLocationAndDate(props.officeAddr, props.date)
+    );
   }, []);
 
   const handleFinishClick = () => {
-    updateSelectedSeatIntoDB(props.officeAddr, officeSeat, props.date);
-    setIsFinished(true);
+    if (officeSeat === null) {
+      alert("You need to select an office seat");
+    } else {
+      updateSelectedSeatIntoDB(props.officeAddr, officeSeat, props.date);
+      setIsFinished(true);
+    }
   };
 
   function handleChange(value) {
@@ -42,27 +48,38 @@ function SeatBooking(props) {
           bordered={false}
           headStyle={{ fontSize: "2em", textAlign: "center" }}
         >
-          {availableSeat.length === 0 ? (
-            <div>
-              no available seat this team, please go back and choose your office
-              again
-            </div>
-          ) : (
-            <Select
-              defaultValue={"choose your seat number"}
-              style={{ width: 1000 }}
-              onChange={handleChange}
-            >
-              {availableSeat.map((seat) => (
-                <Option value={seat.seatNum} key={seat.seatNum}>
-                  {"Office: " +
-                    seat.officeLocation +
-                    ", Seat Number:" +
-                    seat.seatNum}
-                </Option>
-              ))}
-            </Select>
-          )}
+          <Col className="seat-select-container">
+            <Row className="my-3">
+              {props.floor === "5th" ? (
+                <img className="floor-img" alt="5th-floor-plan" src={floor1} />
+              ) : (
+                <img className="floor-img" alt="6th-floor-plan" src={floor2} />
+              )}
+            </Row>
+            <Row>
+              {availableSeat.length === 0 ? (
+                <div>
+                  no available seat this team, please go back and choose your
+                  office again
+                </div>
+              ) : (
+                <Select
+                  defaultValue={`choose your seat number*`}
+                  style={{ width: 800 }}
+                  onChange={handleChange}
+                >
+                  {availableSeat.map((seat) => (
+                    <Option value={seat.seatNum} key={seat.seatNum}>
+                      {"Office: " +
+                        seat.officeLocation +
+                        ", Seat Number:" +
+                        seat.seatNum}
+                    </Option>
+                  ))}
+                </Select>
+              )}
+            </Row>
+          </Col>
         </Card>
       </Col>
       <Col
