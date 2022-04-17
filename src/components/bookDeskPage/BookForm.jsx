@@ -31,9 +31,7 @@ function BookForm(props) {
   };
 
   useEffect(() => {
-    console.log(floor);
-    console.log(officeAddr);
-    console.log(date);
+    console.log(floor, officeAddr, date);
   }, [floor, officeAddr, date]);
 
   return stage === 0 ? (

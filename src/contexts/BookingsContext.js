@@ -9,8 +9,8 @@ export function useBookings() {
 
 export const BookingsProvider = ({ children }) => {
     const [loading, setLoading] = useState(true);
-    const [bookingsData, setBookingsData] = useState(null);
-    const [docID, setDocID] = useState(null);
+    const [bookingsData, setBookingsData] = useState([]);
+    const [docID, setDocID] = useState([]);
     const [state, setState] = useState({});
     const [flag, setFlag] = useState(false)
 
@@ -92,7 +92,7 @@ export const BookingsProvider = ({ children }) => {
 
     }
 
-    function refreshData(){
+    function refreshBookingsData() {
         setFlag(!flag)
     }
 
@@ -114,7 +114,7 @@ export const BookingsProvider = ({ children }) => {
 
     const value = {
         state,
-        refreshData,
+        refreshBookingsData,
         getAllBookings,
         getBookingsByBookingsId,
         addNewBookings,

@@ -63,7 +63,6 @@ function BookingsPage() {
       </Table>
       <div className="paging">
         <Pagination>{items}</Pagination>
-        <br />
       </div>
     </div>
   );

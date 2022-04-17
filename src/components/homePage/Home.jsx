@@ -4,14 +4,18 @@ import "./Home.css";
 import { Link } from "react-router-dom";
 import { useAuth } from "../../contexts/AuthContext";
 import { useBookings } from "../../contexts/BookingsContext";
+import { useFloors } from "../../contexts/FloorsContext";
 
 function HomePage() {
   const { currentUser } = useAuth();
   const { displayName } = currentUser;
-  const { refreshData } = useBookings();
+  const { refreshBookingsData } = useBookings();
+  const { refreshFloorsData } = useFloors();
+
 
   useEffect(() => {
-    refreshData();
+    refreshBookingsData();
+    refreshFloorsData();
   }, []);
 
   return (

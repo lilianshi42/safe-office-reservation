@@ -41,7 +41,7 @@ function FloorPlan(props) {
               Floor: <b>{props.floor}</b>
             </Col>
           </Row>
-          <Row style={{ marginTop: "1rem" }}>
+          <Row className="floor-plan-container" style={{ marginTop: "1rem" }}>
             {props.floor === "5th" ? (
               <img alt="5th-floor-plan" src={floor1} />
             ) : (

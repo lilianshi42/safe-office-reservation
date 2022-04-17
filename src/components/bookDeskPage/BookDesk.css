@@ -1,3 +1,20 @@
-.book-desk-page{
-padding-bottom: 150px;
+.book-desk-page {
+    padding-bottom: 150px;
+}
+
+.floor-plan-container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.floor-img{
+    width: 85%;
+}
+
+.seat-select-container{
+    flex-direction: column;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
