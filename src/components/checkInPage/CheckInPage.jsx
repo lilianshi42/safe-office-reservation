@@ -1,5 +1,5 @@
 import { useBookings } from "../../contexts/BookingsContext";
-import { useFloors } from "../../contexts/FloorsContext";
+
 import CovidSurvey from "../covidSurvey/CovidSurvey.component";
 import moment from "moment";
 import { useEffect, useState } from "react";
@@ -13,16 +13,12 @@ import "./CheckInPage.styles.css";
 function CheckInPage() {
   const { currentUser } = useAuth();
   const { userHasBookingThatDay, getBookingByUsernameAndDate, checkInByUsernameAndDate } = useBookings();
-
-  const { getAllDesksByFloorIdAndDate, getAllDesksByFloorId, getAllFloors, getFloorByFloorId } = useFloors();
-
+  
   const [hasBooking, setHasBooking] = useState(false);
   const [checkedIn, setCheckedIn] = useState(false);
   const [answer, setAnswer] = useState([]);
 
   const navigate = useNavigate();
-
-  const [desks, setDesks] = useState([]);
 
   useEffect(() => {
     const date = moment().format("YYYY-MM-DD");
@@ -32,19 +28,13 @@ function CheckInPage() {
         setCheckedIn(true);
       }
     }
-    const desks = getAllDesksByFloorIdAndDate(101, date);
-    console.log(desks);
-    //getAllDesksByFloorId(101);
-    //getFloorByFloorId(101);
-    //    getAllFloors();
   }, []);
 
   const changeAnswer = (values) => setAnswer(values);
 
-  const handleSubmit = async () => {
+  const handleSubmit = async (answer) => {
     try {
-      //to do:
-      // call check in function
+
       const date = moment().format("YYYY-MM-DD");
       await checkInByUsernameAndDate(currentUser.email, date,answer);
       navigate("/check-in-success");
@@ -64,15 +54,7 @@ function CheckInPage() {
         {hasBooking ? (
           checkedIn === false ? (
             <div>
-              <CovidSurvey changeAnswer={changeAnswer} />
-              <div className="buttons-wrapper-in-checkin" style={{ textAlign: "center", marginTop: "20px" }}>
-                <Button type="primary" onClick={handleSubmit} style={{ marginLeft: "20px"}}>
-                  Check In
-                </Button>
-                <Button onClick={handleNavigate} style={{ marginLeft: "20px" }}>
-                  Cancel
-                </Button>
-              </div>
+              <CovidSurvey changeAnswer={changeAnswer} handleSubmit={handleSubmit} handleNavigate={handleNavigate}/>
             </div>
           ) : (
             <>

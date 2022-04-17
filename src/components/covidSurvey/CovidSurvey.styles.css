@@ -31,3 +31,8 @@
 .covid-survey-container>.ant-checkbox-group>label>.ant-checkbox{
     width: 10%;
 }
+
+.covid-survey-container>.survey-questions{
+    display: flex;
+}
+
