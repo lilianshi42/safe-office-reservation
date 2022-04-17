@@ -46,7 +46,7 @@ function CheckInPage() {
       //to do:
       // call check in function
       const date = moment().format("YYYY-MM-DD");
-      await checkInByUsernameAndDate(currentUser.email, date);
+      await checkInByUsernameAndDate(currentUser.email, date,answer);
       navigate("/check-in-success");
     } catch (err) {
       console.log(err);

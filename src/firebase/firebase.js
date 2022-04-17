@@ -74,14 +74,14 @@ export const retrieveDataFromCollectionDocument = async (col) => {
   }
 }
 
-export const updateChecking = async (col, owner, date) => {
+export const updateChecking = async (col, owner, date,answer) => {
   try {
     firebase.firestore().collection("bookings").where("owner", "==", owner).where("bookingDate", "==", date)
       .get()
       .then(function (querySnapshot) {
         querySnapshot.forEach(function (doc) {
-          //console.log(doc.id, " => ", doc.data());
           doc.ref.update({ "checkIn": true })
+          doc.ref.update({ "surveyResult": answer })
         });
       })
   } catch (error) {
@@ -95,7 +95,6 @@ export const updateCheckOut = async (col, owner, date) => {
       .get()
       .then(function (querySnapshot) {
         querySnapshot.forEach(function (doc) {
-          //console.log(doc.id, " => ", doc.data());
           doc.ref.update({ "checkOut": true })
         });
       })

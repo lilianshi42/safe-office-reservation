@@ -71,9 +71,9 @@ export const BookingsProvider = ({ children }) => {
         return bookingsData.filter(booking => booking.bookingDate === date);
     }
     //note: needs to add validations later
-    async function checkInByUsernameAndDate(username, date) {
+    async function checkInByUsernameAndDate(username, date,answer) {
         try {
-            await updateChecking('bookings', username, date);
+            await updateChecking('bookings', username, date,answer);
 
         } catch (err) {
             console.log(err);

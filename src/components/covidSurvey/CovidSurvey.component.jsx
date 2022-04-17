@@ -1,5 +1,6 @@
 import { Checkbox } from "antd";
 import "./CovidSurvey.styles.css";
+import { Radio } from "antd";
 
 function CovidSurvey({changeAnswer}) {
 
