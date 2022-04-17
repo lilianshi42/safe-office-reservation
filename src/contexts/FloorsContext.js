@@ -72,6 +72,10 @@ export const FloorsProvider = ({ children }) => {
             }
         })
 
+        desks.sort((a, b) => {
+            return (a.seatNum - b.seatNum)
+        })
+
         return desks
     }
 
