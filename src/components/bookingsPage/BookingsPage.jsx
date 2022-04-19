@@ -9,6 +9,7 @@ import { useAuth } from "../../contexts/AuthContext";
 
 import "./BookingsPage.css";
 
+//bookings component to show all the bookings history
 function BookingsPage() {
   const { getBookingByUsernameAndDate } = useBookings();
   const { currentUser } = useAuth();
@@ -27,6 +28,7 @@ function BookingsPage() {
 
   let active = 1;
   let items = [];
+  //set pagination to 5 rows one page
   for (let number = 1; number <= bookings.length / 5; number++) {
     items.push(
       <Pagination.Item key={number} active={number === active}>

@@ -2,6 +2,7 @@ import "./CovidSurvey.styles.css";
 import { Radio,Button } from "antd";
 import {useState} from 'react';
 
+//survey page, only renders when the user wants to check-in
 function CovidSurvey({changeAnswer,handleSubmit,handleNavigate}) {
   
   const [value1,setValue1]=useState("True");
@@ -34,6 +35,8 @@ function CovidSurvey({changeAnswer,handleSubmit,handleNavigate}) {
     setValue6(e.target.value);
   };
 
+  //when the user click the check in button
+  //send the selected answer to check in
   const handleCheckIn = ()=>{
     const answers = [];
     answers.push(value1);

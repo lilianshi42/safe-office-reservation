@@ -10,18 +10,22 @@ import { Button } from "antd";
 
 import "./CheckInPage.styles.css";
 
+//check in component
 function CheckInPage() {
   const { currentUser } = useAuth();
   const { userHasBookingThatDay, getBookingByUsernameAndDate, checkInByUsernameAndDate } = useBookings();
   
   const [hasBooking, setHasBooking] = useState(false);
   const [checkedIn, setCheckedIn] = useState(false);
+
+  //survey answer and set answer function
   const [answer, setAnswer] = useState([]);
 
   const navigate = useNavigate();
 
   useEffect(() => {
     const date = moment().format("YYYY-MM-DD");
+    //get the user's booking and check-in status in that day
     if (userHasBookingThatDay(currentUser.email, date)) {
       setHasBooking(true);
       if (getBookingByUsernameAndDate(currentUser.email, date).checkIn) {
@@ -32,10 +36,11 @@ function CheckInPage() {
 
   const changeAnswer = (values) => setAnswer(values);
 
+  //submit the check-in and survey answer
   const handleSubmit = async (answer) => {
     try {
-
       const date = moment().format("YYYY-MM-DD");
+      //check-in with survey answer
       await checkInByUsernameAndDate(currentUser.email, date,answer);
       navigate("/check-in-success");
     } catch (err) {

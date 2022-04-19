@@ -14,18 +14,23 @@ export const BookingsProvider = ({ children }) => {
     const [state, setState] = useState({});
     const [flag, setFlag] = useState(false)
 
-    //get all
+    //get all bookings
+    //no parameter
+    //return all bookings
     function getAllBookings() {
         return bookingsData
     }
 
-    //get by id
+    //get booking by booking id
+    //parameter: booking id
+    //return a booking 
     function getBookingsByBookingsId(id) {
         let index = bookingsData.find(floor => floor.id === id);
         return getDataFromCollection(docID[index])
     }
 
-    //add new bookings
+    //add new bookings to the database
+    //parameter: username, date, deskId, floorId, officeAddress
     function addNewBookings(username, date, deskId, floorId, officeAddress) {
         const id = Math.floor(Math.random() * 1000001);
         let newBooking = {
@@ -43,23 +48,28 @@ export const BookingsProvider = ({ children }) => {
     }
 
     //delete bookings by ID
+    //parameter: id
     function deleteBookings(id) {
         let index = bookingsData.find(floor => floor.id === id);
         deleteDataFromCollection('bookings', docID[index])
     }
 
     //update bookings by ID
+    //parameter: id
     function updateBookings(id, booking) {
         let index = bookingsData.find(floor => floor.id === id);
         updateDataToCollection('bookings', docID[index], booking)
     }
 
     //return true if user has a booking on that date
+    //parameter: user email, data
     function userHasBookingThatDay(username, date) {
         return bookingsData.some(booking => booking.owner === username && booking.bookingDate === date);
     }
 
-    //note: needs to add validations later
+    //note: get booking history by user email and date
+    //parameter: user email, date
+    //return an array of bookings if no date is provided; A single booking if both parameter provided
     function getBookingByUsernameAndDate(username, date) {
         if (!date) {
             return bookingsData.filter(booking => booking.owner === username);
@@ -67,10 +77,15 @@ export const BookingsProvider = ({ children }) => {
         return bookingsData.find(booking => booking.owner === username && booking.bookingDate === date);
     }
 
+    //get all bookings by date, no user email needed
+    //parameter: date
+    //return an array to bookings
     function getBookingByDate(date) {
         return bookingsData.filter(booking => booking.bookingDate === date);
     }
-    //note: needs to add validations later
+
+    //modify the check-in status to true on database
+    //parameter: useremail, date, and survey answer
     async function checkInByUsernameAndDate(username, date,answer) {
         try {
             await updateChecking('bookings', username, date,answer);
@@ -81,7 +96,8 @@ export const BookingsProvider = ({ children }) => {
 
     }
 
-    //note: needs to add validations later
+    //modify the check-in status of the user on that day to true on database
+    //parameter: useremail, date
     async function checkOutByUsernameAndDate(username, date) {
         try {
             await updateCheckOut('bookings', username, date);
@@ -91,7 +107,7 @@ export const BookingsProvider = ({ children }) => {
         }
 
     }
-
+    
     function refreshBookingsData() {
         setFlag(!flag)
     }

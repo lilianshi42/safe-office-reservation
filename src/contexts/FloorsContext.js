@@ -17,38 +17,50 @@ export const FloorsProvider = ({ children }) => {
     const [flag, setFlag] = useState(false)
 
     //get all
+    //parameter: no
+    //return: an array of floors
     function getAllFloors() {
         return floorsData
     }
 
     //get by id
+    //parameter: floorId
+    //return: one floor
     function getFloorByFloorId(id) {
         return floorsData.find(floor => floor.id === id);
-        //return getDataFromCollection(docID[index])
     }
 
-    //add new floor
+    //add new floor to the database
+    //parameter: a floor object
     function addNewFloor(floor) {
         addDataToCollection('floors', floor)
     }
 
-    //delete floor by ID
+    //delete floor by ID from the database
+    //parameter: a floorid
     function deleteFloor(id) {
         let index = floorsData.find(floor => floor.id === id);
         deleteDataFromCollection('floors', docID[index])
     }
 
-    //update floor by ID
+    //update floor by ID on the database
+    //parameter: floor id, the new floor object
     function updateFloor(id, floor) {
         let index = floorsData.find(floor => floor.id === id);
         updateDataToCollection('floors', docID[index], floor)
     }
 
+    //get all desks on a floor
+    //parameter: floor id
+    //return: all the desks on the floor
     function getAllDesksByFloorId(id) {
         let floor = getFloorByFloorId(id);
         return floor ? floor.desks : [];
     }
 
+    //get all available desks on a floor in some day
+    //parameter: floor id, date
+    //return: all the available desks on the floor on that day
     function getAllDesksByFloorIdAndDate(id, date) {
         let desks = getAllDesksByFloorId(id);
         if (desks.length === 0) return [];
@@ -62,6 +74,9 @@ export const FloorsProvider = ({ children }) => {
         return desks.filter(desk => !bookedDesksOnDate.includes(desk.id));
     }
 
+    //get all available desks in a location in some day
+    //parameter: location, date
+    //return: all the available desks in that location on that day
     function getAllDesksByLocationAndDate(location, date) {
         if (floorsData.length === 0) return;
         console.log(date)

@@ -7,6 +7,7 @@ import { Button } from "antd";
 
 import "./CheckOutPage.styles.css";
 
+//check out page
 const CheckOutPage = () => {
   const { currentUser } = useAuth();
   const { userHasBookingThatDay, getBookingByUsernameAndDate, checkOutByUsernameAndDate } = useBookings();
@@ -17,6 +18,7 @@ const CheckOutPage = () => {
 
   useEffect(() => {
     const date = moment().format("YYYY-MM-DD");
+    //check the user's booking, check-in, and check-out status on that day
     if (userHasBookingThatDay(currentUser.email, date)) {
       setHasBooking(true);
       if (getBookingByUsernameAndDate(currentUser.email, date).checkIn) {
@@ -31,6 +33,7 @@ const CheckOutPage = () => {
   const handleSubmit = async () => {
     try {
       const date = moment().format("YYYY-MM-DD");
+      //check out
       await checkOutByUsernameAndDate(currentUser.email, date);
       navigate("/check-out-success");
     } catch (err) {
